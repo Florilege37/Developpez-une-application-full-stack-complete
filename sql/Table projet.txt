@@ -1,0 +1,46 @@
+CREATE TABLE `USERS` (
+  `id` INT PRIMARY KEY AUTO_INCREMENT,
+  `nickname` VARCHAR(40),
+  `email` VARCHAR(255),
+  `password` VARCHAR(255),
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+);
+
+CREATE TABLE `TOPICS` (
+  `id` INT PRIMARY KEY AUTO_INCREMENT,
+  `theme` VARCHAR(40),
+);
+
+CREATE TABLE `POSTS` (
+  `id` INT PRIMARY KEY AUTO_INCREMENT,
+  `title` VARCHAR(40),
+  `description` VARCHAR(2000),
+  `user_id` INT, 
+  `topic_id` INT, 
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+);
+
+CREATE TABLE `SUBSCRIPTION` (
+  `user_id` INT, 
+  `topic_id` INT, 
+);
+
+CREATE TABLE `MESSAGES` (
+  `id` integer PRIMARY KEY AUTO_INCREMENT,
+  `post_id` INT,
+  `user_id` INT,
+  `message` VARCHAR(2000),
+);
+
+//Ca sert à quoi ? 
+CREATE UNIQUE INDEX `USERS_index` ON `USERS` (`email`);
+
+ALTER TABLE `POSTS` ADD FOREIGN KEY (`user_id`) REFERENCES `USERS` (`id`);
+ALTER TABLE `POSTS` ADD FOREIGN KEY (`topic_id`) REFERENCES `TOPICS` (`id`);
+
+ALTER TABLE `SUBSCRIPTION` ADD FOREIGN KEY (`user_id`) REFERENCES `USERS` (`id`);
+ALTER TABLE `SUBSCRIPTION` ADD FOREIGN KEY (`topic_id`) REFERENCES `TOPICS` (`id`);
+
+
+ALTER TABLE `MESSAGES` ADD FOREIGN KEY (`user_id`) REFERENCES `USERS` (`id`);
+ALTER TABLE `MESSAGES` ADD FOREIGN KEY (`post_id`) REFERENCES `POSTS` (`id`);

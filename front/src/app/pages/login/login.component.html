@@ -1,0 +1,15 @@
+<h2>Se connecter</h2>
+<form [formGroup]="form" (ngSubmit)="submit()">
+
+    <div>
+        <label for="email">E-mail ou nom d'utilisateur :</label><br>
+        <input type="text" id="email" name="email" formControlName="email"><br>
+    </div>
+    <div>
+        <label for="password">Mot de passe :</label><br>
+        <input type="password" id="password" name="password" formControlName="password"><br>
+    </div>
+    <div>
+        <button type="submit" [disabled]="form.invalid">Se connecter</button>
+    </div>
+</form>
