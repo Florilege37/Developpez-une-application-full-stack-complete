@@ -9,6 +9,7 @@ import lombok.NonNull;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -30,4 +31,6 @@ public class UserDto {
     private String password;
 
     private LocalDateTime createdAt;
+
+    //private List<Long> posts;
 }

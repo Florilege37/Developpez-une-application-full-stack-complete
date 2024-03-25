@@ -18,6 +18,11 @@ public class PostController {
     @Autowired
     private PostMapper postMapper;
 
+    /**
+     * Permet de créer un nouveau "Posts"
+     * @param postsDto
+     * @return
+     */
     @PostMapping("/create")
     public ResponseEntity<?> createPost(@RequestBody PostsDto postsDto){
         Posts posts = postMapper.toEntity(postsDto);
@@ -26,6 +31,11 @@ public class PostController {
         return ResponseEntity.ok().build();
     }
 
+    /**
+     * Permet de récupérer un "Posts" afin de l'afficher en détail
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     public ResponseEntity<?> getPost(@PathVariable("id") String id){
         try {

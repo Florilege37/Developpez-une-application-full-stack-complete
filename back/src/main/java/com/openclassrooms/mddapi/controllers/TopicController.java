@@ -22,6 +22,11 @@ public class TopicController {
 
     @Autowired
     private TopicsMapper topicsMapper;
+
+    /**
+     * Permet de récupérer la liste de tous les topics disponibles
+     * @return
+     */
     @GetMapping("/get")
     public ResponseEntity<?> getAllTopics(){
         List<Topics> topics = this.topicsService.getAllTopics();
