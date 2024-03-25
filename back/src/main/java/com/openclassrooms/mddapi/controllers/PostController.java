@@ -1,6 +1,6 @@
 package com.openclassrooms.mddapi.controllers;
 
-import com.openclassrooms.mddapi.dto.PostDto;
+import com.openclassrooms.mddapi.dto.PostsDto;
 import com.openclassrooms.mddapi.entity.Posts;
 import com.openclassrooms.mddapi.mappers.PostMapper;
 import com.openclassrooms.mddapi.services.PostServiceImpl;
@@ -19,8 +19,8 @@ public class PostController {
     private PostMapper postMapper;
 
     @PostMapping("/create")
-    public ResponseEntity<?> createPost(@RequestBody PostDto postDto){
-        Posts posts = postMapper.toEntity(postDto);
+    public ResponseEntity<?> createPost(@RequestBody PostsDto postsDto){
+        Posts posts = postMapper.toEntity(postsDto);
         postService.createPost(posts);
 
         return ResponseEntity.ok().build();

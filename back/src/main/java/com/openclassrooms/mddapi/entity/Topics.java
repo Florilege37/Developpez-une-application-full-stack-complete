@@ -7,7 +7,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Data
-public class Topic {
+public class Topics {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,4 +17,8 @@ public class Topic {
     @Size(max = 40)
     @Column(name="theme")
     private String theme;
+
+    @Size(max = 2000)
+    @Column(name="description")
+    private String description;
 }

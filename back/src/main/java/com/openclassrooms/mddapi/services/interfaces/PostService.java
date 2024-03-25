@@ -10,5 +10,10 @@ public interface PostService {
      */
     void createPost(Posts posts);
 
+    /**
+     * Récupérer les données d'un "Posts" grâce à son ID
+     * @param id
+     * @return
+     */
     Posts getPost(Long id);
 }

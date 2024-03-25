@@ -42,5 +42,5 @@ public class Posts {
 
     @ManyToOne
     @JoinColumn(name="topic_id")
-    private Topic topic;*/
+    private Topics topic;*/
 }
