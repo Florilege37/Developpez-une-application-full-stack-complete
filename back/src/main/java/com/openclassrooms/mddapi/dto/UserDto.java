@@ -32,5 +32,7 @@ public class UserDto {
 
     private LocalDateTime createdAt;
 
+    private List<Long> topicSubscribed;
+
     //private List<Long> posts;
 }

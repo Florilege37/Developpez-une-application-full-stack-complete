@@ -47,6 +47,13 @@ public class User {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "SUBSCRIPTION",
+            joinColumns = @JoinColumn( name = "user_id" ),
+            inverseJoinColumns = @JoinColumn( name = "topic_id" ) )
+    private List<Topics> topicSubscribed;
+
     //Le "user" est le nom de l'attribut dans l'entity "POSTS"
     /*@OneToMany(mappedBy = "user")
     private List<Posts> posts;*/

@@ -18,4 +18,9 @@ public class TopicsServiceImpl implements TopicsService {
     public List<Topics> getAllTopics() {
         return topicsRepository.findAll();
     }
+
+    @Override
+    public Topics findById(Long id) {
+        return topicsRepository.findById(id).orElse(null);
+    }
 }

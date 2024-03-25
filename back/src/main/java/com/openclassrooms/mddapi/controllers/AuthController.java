@@ -22,6 +22,7 @@ import com.openclassrooms.mddapi.payload.response.JwtResponse;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -112,7 +113,6 @@ public class AuthController {
     ResponseEntity<?> getMe(Principal user){
         String userMail = user.getName();
         User userResult = userService.findByEmail(userMail);
-
         return ResponseEntity.ok().body(userMapper.toDto(userResult));
     }
 
