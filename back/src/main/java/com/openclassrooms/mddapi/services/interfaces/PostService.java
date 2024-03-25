@@ -9,4 +9,6 @@ public interface PostService {
      * @param posts
      */
     void createPost(Posts posts);
+
+    Posts getPost(Long id);
 }
