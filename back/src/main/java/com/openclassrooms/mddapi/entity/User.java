@@ -2,11 +2,13 @@ package com.openclassrooms.mddapi.entity;
 
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Data
@@ -16,6 +18,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @AllArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class User {
 
     @Id
@@ -39,16 +42,12 @@ public class User {
     @Column(name="password")
     private String password;
 
-    /*@ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;*/
-
     @CreatedDate
-    @Column(name = "created_at", updatable = false)
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    /*//Le "user" est le nom de l'attribut dans l'entity "POSTS"
-    @OneToMany(mappedBy = "user")
-    private Set<Post> posts;*/
+    //Le "user" est le nom de l'attribut dans l'entity "POSTS"
+    /*@OneToMany(mappedBy = "user")
+    private Set<Posts> posts;*/
 
 }
