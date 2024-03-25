@@ -15,5 +15,5 @@ public interface PostService {
      * @param id
      * @return
      */
-    Posts getPost(Long id);
+    Posts findById(Long id);
 }

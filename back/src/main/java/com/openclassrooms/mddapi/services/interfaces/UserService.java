@@ -8,7 +8,7 @@ public interface UserService {
      * Récupère les détails d'un User grâce à son ID
      * @return
      */
-    User getUser(Long id);
+    User findById(Long id);
 
     /**
      * Récupère les détails d'un User grâce à son email

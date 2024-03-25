@@ -39,7 +39,7 @@ public class PostController {
     @GetMapping("/{id}")
     public ResponseEntity<?> getPost(@PathVariable("id") String id){
         try {
-            Posts posts = this.postService.getPost(Long.valueOf(id));
+            Posts posts = this.postService.findById(Long.valueOf(id));
 
             if (posts==null){
                 return ResponseEntity.notFound().build();
