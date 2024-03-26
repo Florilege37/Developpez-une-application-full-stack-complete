@@ -41,6 +41,11 @@ public class PostController {
         try {
             Posts posts = this.postService.findById(Long.valueOf(id));
 
+            System.out.println("FLORIAN :" + posts.getMessages());
+
+            PostsDto postsDto = postMapper.toDto(posts);
+            System.out.println("FLORIAN :" + postsDto.getMessage());
+
             if (posts==null){
                 return ResponseEntity.notFound().build();
             }

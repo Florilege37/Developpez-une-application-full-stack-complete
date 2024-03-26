@@ -7,6 +7,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -35,6 +37,10 @@ public class Posts {
     @CreatedDate
     @Column(name = "created_at", updatable = false)
     private LocalDateTime created_at;
+
+    @OneToMany(mappedBy = "postId", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Messages> messages;
+
 
     /*@ManyToOne
     @JoinColumn(name = "user_id")

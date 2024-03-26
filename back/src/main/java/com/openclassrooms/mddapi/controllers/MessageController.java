@@ -32,7 +32,7 @@ public class MessageController {
 
     @PostMapping("/")
     public ResponseEntity<?> createMessage(@RequestBody MessageDto messageDto){
-        Long postId = messageDto.getPost_id();
+        Long postId = messageDto.getPostId();
         Long userId = messageDto.getUser_id();
 
         Posts posts = postService.findById(postId);

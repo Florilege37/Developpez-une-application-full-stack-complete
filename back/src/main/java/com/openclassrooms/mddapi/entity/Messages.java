@@ -18,7 +18,7 @@ public class Messages {
     private Long user_id;
 
     @Column(name = "post_id")
-    private Long post_id;
+    private Long postId;
 
     @Size(max = 2000)
     @Column(name="message")
