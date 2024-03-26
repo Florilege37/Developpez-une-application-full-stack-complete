@@ -1,5 +1,6 @@
 package com.openclassrooms.mddapi.controllers;
 
+import com.openclassrooms.mddapi.dto.UserDto;
 import com.openclassrooms.mddapi.entity.User;
 import com.openclassrooms.mddapi.mappers.UserMapper;
 import com.openclassrooms.mddapi.payload.request.LoginRequest;
@@ -33,7 +34,6 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
     private final PasswordEncoder passwordEncoder;
-    private final UserRepository userRepository;
 
     @Autowired
     private UserServiceImpl userService;
@@ -49,7 +49,6 @@ public class AuthController {
         this.authenticationManager = authenticationManager;
         this.jwtUtils = jwtUtils;
         this.passwordEncoder = passwordEncoder;
-        this.userRepository = userRepository;
     }
 
     /**
@@ -61,7 +60,7 @@ public class AuthController {
      */
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-        if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+        if (userService.existByEmail(signUpRequest.getEmail())) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Erreur: Email déjà utilisé"));
@@ -76,7 +75,7 @@ public class AuthController {
                 signUpRequest.getEmail(),
                 passwordEncoder.encode(signUpRequest.getPassword()));
 
-        userRepository.save(user);
+        userService.save(user);
 
         return ResponseEntity.ok(new MessageResponse("Utilisateur inscrit !"));
     }
@@ -111,6 +110,9 @@ public class AuthController {
 
     @GetMapping("/me")
     ResponseEntity<?> getMe(Principal user){
+        if (user == null){
+            return ResponseEntity.notFound().build();
+        }
         String userMail = user.getName();
         User userResult = userService.findByEmail(userMail);
         return ResponseEntity.ok().body(userMapper.toDto(userResult));
@@ -124,6 +126,29 @@ public class AuthController {
     public static boolean isValid(final String password) {
         Matcher matcher = pattern.matcher(password);
         return matcher.matches();
+    }
+
+    /**
+     * Permet de mettre à jour le pseudo et/ou l'email de l'utilisateur
+     * @param id
+     * @param newUserDto
+     * @return
+     */
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> updateUser(@PathVariable("id") String id, @RequestBody UserDto newUserDto){
+        User user = userService.findById(Long.valueOf(id));
+
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        UserDto userDto = userMapper.toDto(user);
+        userDto.setEmail(newUserDto.getEmail());
+        userDto.setNickname(newUserDto.getNickname());
+        user = userMapper.toEntity(userDto);
+
+        userService.save(user);
+        return ResponseEntity.ok().build();
     }
 
 }

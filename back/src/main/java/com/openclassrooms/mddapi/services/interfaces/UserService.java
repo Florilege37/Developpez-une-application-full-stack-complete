@@ -16,4 +16,9 @@ public interface UserService {
      * @return
      */
     User findByEmail(String email);
+
+    void save(User user);
+
+    boolean existByEmail(String email);
+
 }
