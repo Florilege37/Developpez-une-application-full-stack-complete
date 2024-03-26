@@ -6,10 +6,7 @@ import com.openclassrooms.mddapi.mappers.TopicsMapper;
 import com.openclassrooms.mddapi.services.TopicsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,4 +30,28 @@ public class TopicController {
 
         return ResponseEntity.ok().body(this.topicsMapper.toDto(topics));
     }
+
+    @PostMapping("{userId}/subs/{id}")
+    public ResponseEntity<?> subscribe(@PathVariable("id") String id, @PathVariable("userId") String userId){
+        try {
+            this.topicsService.subscribe(Long.parseLong(id), Long.parseLong(userId));
+
+            return ResponseEntity.ok().build();
+        } catch (NumberFormatException e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @DeleteMapping("{userId}/subs/{id}")
+    public ResponseEntity<?> unsubscribe(@PathVariable("id") String id, @PathVariable("userId") String userId){
+        try {
+            this.topicsService.unsubscribe(Long.parseLong(id), Long.parseLong(userId));
+
+            return ResponseEntity.ok().build();
+        } catch (NumberFormatException e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+
 }

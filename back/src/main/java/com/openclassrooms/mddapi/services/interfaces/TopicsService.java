@@ -9,4 +9,8 @@ public interface TopicsService {
     List<Topics> getAllTopics();
 
     Topics findById(Long id);
+
+    void subscribe(Long id, Long userId);
+
+    void unsubscribe(Long id, Long userId);
 }
