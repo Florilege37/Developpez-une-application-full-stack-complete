@@ -6,6 +6,9 @@ import com.openclassrooms.mddapi.services.interfaces.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class PostServiceImpl implements PostService {
 
@@ -19,5 +22,13 @@ public class PostServiceImpl implements PostService {
     @Override
     public Posts findById(Long id) {
         return postRepository.findById(id).orElse(null);
+    }
+
+    public List<Posts> getPostsByTopicIds(List<Long> ids) {
+        List<Posts> posts = new ArrayList<>();
+        for (Long id : ids) {
+            posts.addAll(postRepository.findAllByTopicId(id));
+        }
+        return posts;
     }
 }

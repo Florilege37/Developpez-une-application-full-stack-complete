@@ -30,7 +30,7 @@ public class Posts {
     private Long user_id;
 
     @Column(name="topic_id")
-    private Long topic_id;
+    private Long topicId;
 
     @CreatedDate
     @Column(name = "created_at", updatable = false)

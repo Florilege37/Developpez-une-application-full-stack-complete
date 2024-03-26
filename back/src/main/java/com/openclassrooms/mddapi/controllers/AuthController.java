@@ -1,7 +1,10 @@
 package com.openclassrooms.mddapi.controllers;
 
 import com.openclassrooms.mddapi.dto.UserDto;
+import com.openclassrooms.mddapi.entity.Posts;
+import com.openclassrooms.mddapi.entity.Topics;
 import com.openclassrooms.mddapi.entity.User;
+import com.openclassrooms.mddapi.mappers.PostMapper;
 import com.openclassrooms.mddapi.mappers.UserMapper;
 import com.openclassrooms.mddapi.payload.request.LoginRequest;
 import com.openclassrooms.mddapi.payload.request.SignupRequest;
@@ -9,6 +12,8 @@ import com.openclassrooms.mddapi.payload.response.MessageResponse;
 import com.openclassrooms.mddapi.repository.UserRepository;
 import com.openclassrooms.mddapi.security.jwt.JwtUtils;
 import com.openclassrooms.mddapi.security.services.UserDetailsImpl;
+import com.openclassrooms.mddapi.services.PostServiceImpl;
+import com.openclassrooms.mddapi.services.TopicsServiceImpl;
 import com.openclassrooms.mddapi.services.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,9 +28,11 @@ import com.openclassrooms.mddapi.payload.response.JwtResponse;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -39,7 +46,13 @@ public class AuthController {
     private UserServiceImpl userService;
 
     @Autowired
+    private PostServiceImpl postService;
+
+    @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private PostMapper postMapper;
     private final static String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$";
     private static final Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
     AuthController(AuthenticationManager authenticationManager,
@@ -149,6 +162,32 @@ public class AuthController {
 
         userService.save(user);
         return ResponseEntity.ok().build();
+    }
+
+    /**
+     * Permet de récupérer tous les articles que le User va voir sur sa page "Articles"
+     * C'est à dire tous les articles des thèmes auxquels il est abonné.
+     * @param user
+     * @return
+     */
+    @GetMapping("/me/posts")
+    public ResponseEntity<?> getAllPosts(Principal user){
+        if (user == null){
+            return ResponseEntity.notFound().build();
+        }
+
+        // On récupère le user
+        String userMail = user.getName();
+        User userResult = userService.findByEmail(userMail);
+
+        // On récupère ses topics d'abonnement
+        List<Topics> topics = userResult.getTopicSubscribed();
+        List<Long> ids = topics.stream().map(Topics::getId).collect(Collectors.toList());
+
+        //Pour chaque Topics, on récupère ses articles associés
+        List<Posts> posts = postService.getPostsByTopicIds(ids);
+
+        return ResponseEntity.ok().body(postMapper.toDto(posts));
     }
 
 }

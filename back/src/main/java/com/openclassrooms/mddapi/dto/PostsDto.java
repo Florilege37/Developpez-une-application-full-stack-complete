@@ -21,7 +21,7 @@ public class PostsDto {
 
     private Long user_id;
 
-    private Long topic_id;
+    private Long topicId;
 
     private LocalDateTime created_at;
 }
