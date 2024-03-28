@@ -4,6 +4,7 @@ import com.openclassrooms.mddapi.dto.PostsDto;
 import com.openclassrooms.mddapi.entity.Posts;
 import com.openclassrooms.mddapi.mappers.PostMapper;
 import com.openclassrooms.mddapi.services.PostServiceImpl;
+import com.openclassrooms.mddapi.services.interfaces.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class PostController {
 
     @Autowired
-    private PostServiceImpl postService;
+    private PostService postService;
 
     @Autowired
     private PostMapper postMapper;
@@ -40,11 +41,6 @@ public class PostController {
     public ResponseEntity<?> getPost(@PathVariable("id") String id){
         try {
             Posts posts = this.postService.findById(Long.valueOf(id));
-
-            System.out.println("FLORIAN :" + posts.getMessages());
-
-            PostsDto postsDto = postMapper.toDto(posts);
-            System.out.println("FLORIAN :" + postsDto.getMessage());
 
             if (posts==null){
                 return ResponseEntity.notFound().build();

@@ -4,6 +4,7 @@ import com.openclassrooms.mddapi.entity.Posts;
 import com.openclassrooms.mddapi.entity.Topics;
 import com.openclassrooms.mddapi.mappers.TopicsMapper;
 import com.openclassrooms.mddapi.services.TopicsServiceImpl;
+import com.openclassrooms.mddapi.services.interfaces.TopicsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +16,7 @@ import java.util.List;
 public class TopicController {
 
     @Autowired
-    private TopicsServiceImpl topicsService;
+    private TopicsService topicsService;
 
     @Autowired
     private TopicsMapper topicsMapper;

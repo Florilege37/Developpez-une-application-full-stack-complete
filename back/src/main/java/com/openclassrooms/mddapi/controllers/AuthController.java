@@ -15,6 +15,8 @@ import com.openclassrooms.mddapi.security.services.UserDetailsImpl;
 import com.openclassrooms.mddapi.services.PostServiceImpl;
 import com.openclassrooms.mddapi.services.TopicsServiceImpl;
 import com.openclassrooms.mddapi.services.UserServiceImpl;
+import com.openclassrooms.mddapi.services.interfaces.PostService;
+import com.openclassrooms.mddapi.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -43,10 +45,10 @@ public class AuthController {
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    private UserServiceImpl userService;
+    private UserService userService;
 
     @Autowired
-    private PostServiceImpl postService;
+    private PostService postService;
 
     @Autowired
     private UserMapper userMapper;
@@ -57,8 +59,7 @@ public class AuthController {
     private static final Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
     AuthController(AuthenticationManager authenticationManager,
                    PasswordEncoder passwordEncoder,
-                   JwtUtils jwtUtils,
-                   UserRepository userRepository) {
+                   JwtUtils jwtUtils) {
         this.authenticationManager = authenticationManager;
         this.jwtUtils = jwtUtils;
         this.passwordEncoder = passwordEncoder;
@@ -117,7 +118,7 @@ public class AuthController {
         } catch (AuthenticationException e) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Erreur: Utilisateur introuvable"));
+                    .body(new MessageResponse("Erreur technique"));
         }
     }
 

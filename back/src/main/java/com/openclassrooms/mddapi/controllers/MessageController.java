@@ -10,6 +10,8 @@ import com.openclassrooms.mddapi.services.MessagesServiceImpl;
 import com.openclassrooms.mddapi.services.PostServiceImpl;
 import com.openclassrooms.mddapi.services.UserServiceImpl;
 import com.openclassrooms.mddapi.services.interfaces.MessagesService;
+import com.openclassrooms.mddapi.services.interfaces.PostService;
+import com.openclassrooms.mddapi.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,16 +21,16 @@ import org.springframework.web.bind.annotation.*;
 public class MessageController {
 
     @Autowired
-    private MessagesServiceImpl messagesService;
+    private MessagesService messagesService;
 
     @Autowired
     private MessageMapper messageMapper;
 
     @Autowired
-    private PostServiceImpl postService;
+    private PostService postService;
 
     @Autowired
-    private UserServiceImpl userService;
+    private UserService userService;
 
     @PostMapping("/")
     public ResponseEntity<?> createMessage(@RequestBody MessageDto messageDto){

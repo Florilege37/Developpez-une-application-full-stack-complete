@@ -73,6 +73,10 @@
               "browserTarget": "front:build:development"
             }
           },
+          "options": {
+            "browserTarget": "project-name:build",
+            "proxyConfig": "src/proxy.config.json"
+          },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
