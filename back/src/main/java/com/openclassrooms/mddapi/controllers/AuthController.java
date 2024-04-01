@@ -9,12 +9,8 @@ import com.openclassrooms.mddapi.mappers.UserMapper;
 import com.openclassrooms.mddapi.payload.request.LoginRequest;
 import com.openclassrooms.mddapi.payload.request.SignupRequest;
 import com.openclassrooms.mddapi.payload.response.MessageResponse;
-import com.openclassrooms.mddapi.repository.UserRepository;
 import com.openclassrooms.mddapi.security.jwt.JwtUtils;
 import com.openclassrooms.mddapi.security.services.UserDetailsImpl;
-import com.openclassrooms.mddapi.services.PostServiceImpl;
-import com.openclassrooms.mddapi.services.TopicsServiceImpl;
-import com.openclassrooms.mddapi.services.UserServiceImpl;
 import com.openclassrooms.mddapi.services.interfaces.PostService;
 import com.openclassrooms.mddapi.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +26,6 @@ import com.openclassrooms.mddapi.payload.response.JwtResponse;
 
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -74,10 +69,10 @@ public class AuthController {
      */
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-        if (userService.existByEmail(signUpRequest.getEmail())) {
+        if (userService.existByEmail(signUpRequest.getEmail()) || userService.existByNickname(signUpRequest.getNickname())) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Erreur: Email déjà utilisé"));
+                    .body(new MessageResponse("Erreur: Email ou nom d'utilisateur déjà utilisé"));
         } else if(!isValid(signUpRequest.getPassword())){
             return ResponseEntity
                     .badRequest()
@@ -103,8 +98,21 @@ public class AuthController {
     public ResponseEntity<?> loginUser(@Valid @RequestBody LoginRequest loginRequest) {
 
         try {
+            String requestEmail = loginRequest.getEmailOrNickname();
+
+            // On test si on login avec le couple "Nickname/password". Si on a un ce couple, on récupère l'email.
+            if (!requestEmail.contains("@")){
+                User user = userService.findByNickname(loginRequest.getEmailOrNickname());
+                if (user == null) {
+                    return ResponseEntity
+                            .badRequest()
+                            .body(new MessageResponse("Erreur technique"));
+                } else {
+                    requestEmail = user.getEmail();
+                }
+            }
             Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+                    new UsernamePasswordAuthenticationToken(requestEmail, loginRequest.getPassword()));
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
             String jwt = jwtUtils.generateJwtToken(authentication);
@@ -164,31 +172,4 @@ public class AuthController {
         userService.save(user);
         return ResponseEntity.ok().build();
     }
-
-    /**
-     * Permet de récupérer tous les articles que le User va voir sur sa page "Articles"
-     * C'est à dire tous les articles des thèmes auxquels il est abonné.
-     * @param user
-     * @return
-     */
-    @GetMapping("/me/posts")
-    public ResponseEntity<?> getAllPosts(Principal user){
-        if (user == null){
-            return ResponseEntity.notFound().build();
-        }
-
-        // On récupère le user
-        String userMail = user.getName();
-        User userResult = userService.findByEmail(userMail);
-
-        // On récupère ses topics d'abonnement
-        List<Topics> topics = userResult.getTopicSubscribed();
-        List<Long> ids = topics.stream().map(Topics::getId).collect(Collectors.toList());
-
-        //Pour chaque Topics, on récupère ses articles associés
-        List<Posts> posts = postService.getPostsByTopicIds(ids);
-
-        return ResponseEntity.ok().body(postMapper.toDto(posts));
-    }
-
 }
