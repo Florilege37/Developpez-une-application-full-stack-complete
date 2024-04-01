@@ -1,0 +1,19 @@
+<h2>Inscription</h2>
+<form [formGroup]="form" (ngSubmit)="submit()">
+    <div>
+        <label for="nickname">Nom d'utilisateur:</label>
+        <input type="text" id="nickname" name="nickname" formControlName="nickname" required>
+    </div>
+     <div>
+        <label for="email">Adresse email:</label>
+        <input type="email" id="email" name="email" formControlName="email" required>
+    </div>
+    <div>
+        <label for="password">Mot de passe:</label>
+        <input type="password" id="password" name="password" formControlName="password" required>
+    </div>
+    <div>
+        <button type="submit" [disabled]="form.invalid">S'inscrire</button>
+    </div>
+    <span *ngIf="onError" class="error">Erreur lors de l'inscription</span>
+</form>

@@ -2,8 +2,8 @@
 <form [formGroup]="form" (ngSubmit)="submit()">
 
     <div>
-        <label for="email">E-mail ou nom d'utilisateur :</label><br>
-        <input type="text" id="email" name="email" formControlName="email"><br>
+        <label for="emailOrNickname">E-mail ou nom d'utilisateur :</label><br>
+        <input type="text" id="emailOrNickname" name="emailOrNickname" formControlName="emailOrNickname"><br>
     </div>
     <div>
         <label for="password">Mot de passe :</label><br>
@@ -12,4 +12,5 @@
     <div>
         <button type="submit" [disabled]="form.invalid">Se connecter</button>
     </div>
+    <p *ngIf="onError" class="error">Erreur lors de l'authentification</p>
 </form>

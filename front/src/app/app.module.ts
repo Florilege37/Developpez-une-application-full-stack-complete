@@ -13,6 +13,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { RegisterComponent } from './pages/register/register.component';
+import { ListPostsComponent } from './pages/list-posts/list-posts.component';
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
 
 const materialModule = [
   MatButtonModule,
@@ -23,7 +26,7 @@ const materialModule = [
 ]
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, LoginComponent],
+  declarations: [AppComponent, HomeComponent, LoginComponent, RegisterComponent, ListPostsComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -35,7 +38,9 @@ const materialModule = [
     CommonModule,
     ...materialModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
