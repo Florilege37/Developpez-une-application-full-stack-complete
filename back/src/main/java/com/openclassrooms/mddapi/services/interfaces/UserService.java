@@ -17,8 +17,11 @@ public interface UserService {
      */
     User findByEmail(String email);
 
+    User findByNickname(String nickname);
+
     void save(User user);
 
     boolean existByEmail(String email);
+    boolean existByNickname(String nickname);
 
 }

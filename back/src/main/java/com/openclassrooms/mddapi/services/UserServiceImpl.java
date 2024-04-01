@@ -22,6 +22,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findByNickname(String nickname) {
+        return userRepository.findByNickname(nickname).orElse(null);
+    }
+    @Override
     public void save(User user) {
         userRepository.save(user);
     }
@@ -29,5 +33,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean existByEmail(String email) {
         return userRepository.existsByEmail(email);
+    }
+
+    @Override
+    public boolean existByNickname(String nickname) {
+        return userRepository.existsByNickname(nickname);
     }
 }
