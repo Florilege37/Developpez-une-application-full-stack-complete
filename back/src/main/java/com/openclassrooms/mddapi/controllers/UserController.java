@@ -52,4 +52,13 @@ public class UserController {
         User userResult = userService.findByEmail(userMail);
         return ResponseEntity.ok().body(userMapper.toDto(userResult));
     }
+
+    @GetMapping("/{id}")
+    ResponseEntity<?> getById(@PathVariable("id") String id){
+        User user = userService.findById(Long.valueOf(id));
+        if (user == null){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok().body(userMapper.toDto(user));
+    }
 }
