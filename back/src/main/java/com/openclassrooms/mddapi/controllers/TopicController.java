@@ -2,6 +2,7 @@ package com.openclassrooms.mddapi.controllers;
 
 import com.openclassrooms.mddapi.entity.Posts;
 import com.openclassrooms.mddapi.entity.Topics;
+import com.openclassrooms.mddapi.entity.User;
 import com.openclassrooms.mddapi.mappers.TopicsMapper;
 import com.openclassrooms.mddapi.services.TopicsServiceImpl;
 import com.openclassrooms.mddapi.services.interfaces.TopicsService;
@@ -52,6 +53,15 @@ public class TopicController {
         } catch (NumberFormatException e) {
             return ResponseEntity.badRequest().build();
         }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getById(@PathVariable("id") String id){
+        Topics topics = topicsService.findById(Long.valueOf(id));
+        if (topics == null){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok().body(topicsMapper.toDto(topics));
     }
 
 
