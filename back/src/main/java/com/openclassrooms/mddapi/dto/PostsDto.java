@@ -28,4 +28,6 @@ public class PostsDto {
     private LocalDateTime created_at;
 
     private List<Messages> message;
+
+    private String userName;
 }

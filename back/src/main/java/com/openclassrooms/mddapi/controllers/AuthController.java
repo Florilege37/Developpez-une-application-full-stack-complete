@@ -42,14 +42,6 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private PostService postService;
-
-    @Autowired
-    private UserMapper userMapper;
-
-    @Autowired
-    private PostMapper postMapper;
     private final static String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$";
     private static final Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
     AuthController(AuthenticationManager authenticationManager,
@@ -130,16 +122,6 @@ public class AuthController {
         }
     }
 
-    @GetMapping("/me")
-    ResponseEntity<?> getMe(Principal user){
-        if (user == null){
-            return ResponseEntity.notFound().build();
-        }
-        String userMail = user.getName();
-        User userResult = userService.findByEmail(userMail);
-        return ResponseEntity.ok().body(userMapper.toDto(userResult));
-    }
-
     /**
      *
      * @param password
@@ -150,26 +132,5 @@ public class AuthController {
         return matcher.matches();
     }
 
-    /**
-     * Permet de mettre à jour le pseudo et/ou l'email de l'utilisateur
-     * @param id
-     * @param newUserDto
-     * @return
-     */
-    @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateUser(@PathVariable("id") String id, @RequestBody UserDto newUserDto){
-        User user = userService.findById(Long.valueOf(id));
 
-        if (user == null) {
-            return ResponseEntity.notFound().build();
-        }
-
-        UserDto userDto = userMapper.toDto(user);
-        userDto.setEmail(newUserDto.getEmail());
-        userDto.setNickname(newUserDto.getNickname());
-        user = userMapper.toEntity(userDto);
-
-        userService.save(user);
-        return ResponseEntity.ok().build();
-    }
 }
