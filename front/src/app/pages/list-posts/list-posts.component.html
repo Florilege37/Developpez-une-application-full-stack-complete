@@ -1,5 +1,10 @@
-<div class="items mt2" fxLayout="row wrap" fxLayout.lt-md="column">
+<div>
     <div class="item" *ngFor="let post of (post$ | async)" fxFlex>
-        <p>Test</p>
+        <div (click)="onPostClick(post.id)">
+            <h1>{{post.title}}</h1>
+            <p>{{ post.created_at | date: 'longDate'}}</p>
+            <p>{{post.userName}}</p>
+            <p>{{post.description}}</p>
+        </div>
     </div>
-  </div>
+</div>

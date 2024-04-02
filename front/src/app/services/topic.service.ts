@@ -2,26 +2,27 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Post } from '../pages/interfaces/post.interface';
+import { Topic } from '../pages/interfaces/topic.interface';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PostApiService {
+export class TopicService {
 
-  private pathService = 'api/posts';
+  private pathService = 'api/topics';
 
   constructor(private httpClient: HttpClient) {
   }
 
-  public all(): Observable<Post[]> {
+  public getById(id: string): Observable<Topic> {
+    return this.httpClient.get<Topic>(`${this.pathService}/${id}`);
+  }
+
+  /*public all(): Observable<Post[]> {
     return this.httpClient.get<Post[]>(`${this.pathService}/me/posts`);
   }
 
-  public detail(id: string): Observable<Post> {
-    return this.httpClient.get<Post>(`${this.pathService}/${id}`);
-  }
-
-  /*public delete(id: string): Observable<any> {
+  public delete(id: string): Observable<any> {
     return this.httpClient.delete(`${this.pathService}/${id}`);
   }
 

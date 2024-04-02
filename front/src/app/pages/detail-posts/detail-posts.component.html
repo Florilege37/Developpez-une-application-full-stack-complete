@@ -1,0 +1,15 @@
+<div *ngIf="post">
+    <p>{{post.title}}</p>
+    <p>{{post.created_at | date: 'longDate'}}</p>
+    <p>{{userName}}</p>
+    <p>{{topicTheme}}</p>
+    <p>{{post.description}}</p>
+    <hr/>
+    <h1>Commentaires</h1>
+    <div class="messageSection" *ngFor="let message of (post.message)" >
+        <div class="message">
+            <p>{{message.userName}}</p>
+            <p>{{message.message}}</p>
+        </div>
+    </div>
+</div>

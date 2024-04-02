@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { PostApiService } from 'src/app/services/post.service';
 import { SessionService } from 'src/app/services/session.service';
 import { SessionInformation } from 'src/app/models/sessionInformation.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-posts',
@@ -14,12 +15,19 @@ export class ListPostsComponent {
 
   public post$: Observable<Post[]> = this.postApiService.all();
 
+  public postUserNickname!: String;
+
   constructor(
     private sessionService: SessionService,
-    private postApiService: PostApiService) { }
+    private postApiService: PostApiService,
+    private router: Router) { }
 
     get user(): SessionInformation | undefined {
       return this.sessionService.sessionInformation;
+    }
+
+    onPostClick(postId : number){
+      this.router.navigate(['/posts/', postId]);
     }
 
 }

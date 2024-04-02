@@ -16,6 +16,8 @@ import { CommonModule } from '@angular/common';
 import { RegisterComponent } from './pages/register/register.component';
 import { ListPostsComponent } from './pages/list-posts/list-posts.component';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
+import { MeComponent } from './pages/me/me.component';
+import { DetailPostsComponent } from './pages/detail-posts/detail-posts.component';
 
 const materialModule = [
   MatButtonModule,
@@ -26,7 +28,7 @@ const materialModule = [
 ]
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, LoginComponent, RegisterComponent, ListPostsComponent],
+  declarations: [AppComponent, HomeComponent, LoginComponent, RegisterComponent, ListPostsComponent, MeComponent, DetailPostsComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
