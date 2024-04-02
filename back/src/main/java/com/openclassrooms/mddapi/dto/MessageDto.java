@@ -15,6 +15,8 @@ public class MessageDto {
 
     private Long user_id;
 
+    private String userName;
+
     private Long postId;
     @Size(max = 2000)
     private String message;
