@@ -31,14 +31,6 @@ export class ListTopicsComponent implements OnInit{
     this.user.topicSubscribed.push(topicId);
   }
 
-  unSubscribeToTopic(topicId: number, userId: number){
-    this.topicService.unSubscribeToTopic(topicId,userId).subscribe();
-    const index = this.user.topicSubscribed.indexOf(topicId);
-    if (index !== -1) {
-      this.user.topicSubscribed.splice(index, 1);
-    }
-  }
-
   isSubscribed(topicId: number): boolean {
     return this.user && this.user.topicSubscribed && this.user.topicSubscribed.includes(topicId);
   } 

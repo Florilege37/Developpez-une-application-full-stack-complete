@@ -8,3 +8,11 @@
     </div>
     <button type="submit" [disabled]="form.invalid">Sauvegarder</button>
 </form>
+<hr/>
+<div *ngFor="let topic of (topics$ | async)" fxFlex>
+    <div *ngIf="isSubscribed(topic.id)">
+        <h1>{{topic.theme}}</h1>
+        <p>{{topic.description}}</p>
+        <button [style.display]="isSubscribed(topic.id) ? 'block' : 'none'" (click)="unSubscribeToTopic(topic.id, user.id)">Se désabonner</button>
+    </div>
+</div>
