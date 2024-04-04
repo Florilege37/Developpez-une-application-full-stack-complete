@@ -30,6 +30,10 @@ export class TopicService {
     return this.httpClient.delete<void>(`${this.pathService}/${userId}/subs/${id}`);
   }
 
+  public getByTheme(theme: string): Observable<Topic> {
+    return this.httpClient.get<Topic>(`${this.pathService}/getTheme/${theme}`);
+  }
+
   /*public delete(id: string): Observable<any> {
     return this.httpClient.delete(`${this.pathService}/${id}`);
   }

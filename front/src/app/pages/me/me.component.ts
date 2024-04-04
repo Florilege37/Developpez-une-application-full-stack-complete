@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { SessionService } from '../../services/session.service';
 import { User } from '../interfaces/user.interface';
 import { UserService } from '../../services/user.service';
+import { FormBuilder, Validators } from '@angular/forms';
+import { UserUpdateRequest } from 'src/app/models/userUpdateRequest.interface';
 
 @Component({
   selector: 'app-me',
@@ -10,15 +12,46 @@ import { UserService } from '../../services/user.service';
 })
 export class MeComponent implements OnInit {
 
-  public user: User | undefined;
+  public nickname?: String;
+  public email?: String;
+  public userId!: number;
+
+
+  public form = this.fb.group({
+    nickname: [
+      '',
+      [
+        Validators.required,
+      ]
+    ],
+    email: [
+      '',
+      [
+        Validators.required
+      ]
+    ]
+  });
 
   constructor(
-    private sessionService: SessionService,
-    private userService: UserService) {
+    private userService: UserService,
+    private fb: FormBuilder,) {
 }
 
   ngOnInit(): void {
-    this.userService.getMe().subscribe((user: User) => this.user = user);
+    this.userService.getMe().subscribe((user: User) => {
+      this.nickname=user.nickname;
+      this.email=user.email;
+      this.userId=user.id;
+      this.form.patchValue({
+        nickname: user.nickname,
+        email: user.email
+      });
+    });
+  }
+
+  submit(){
+    const userUpdateRequest = this.form.value as UserUpdateRequest;
+    this.userService.update(this.userId,userUpdateRequest).subscribe();
   }
 
 }

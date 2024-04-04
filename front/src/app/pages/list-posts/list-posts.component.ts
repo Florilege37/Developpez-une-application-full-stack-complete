@@ -30,4 +30,8 @@ export class ListPostsComponent {
       this.router.navigate(['/posts/', postId]);
     }
 
+    goToCreerArticle(){
+      this.router.navigate(['/createArticle']);
+    }
+
 }

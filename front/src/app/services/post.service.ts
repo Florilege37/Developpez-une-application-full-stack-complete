@@ -21,12 +21,12 @@ export class PostApiService {
     return this.httpClient.get<Post>(`${this.pathService}/${id}`);
   }
 
-  /*public delete(id: string): Observable<any> {
-    return this.httpClient.delete(`${this.pathService}/${id}`);
+  public create(post: Post): Observable<Post> {
+    return this.httpClient.post<Post>(`${this.pathService}/create`, post);
   }
 
-  public create(post: Post): Observable<Post> {
-    return this.httpClient.post<Post>(this.pathService, post);
+  /*public delete(id: string): Observable<any> {
+    return this.httpClient.delete(`${this.pathService}/${id}`);
   }
 
   public update(id: string, post: Post): Observable<Post> {

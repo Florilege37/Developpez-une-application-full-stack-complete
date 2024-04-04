@@ -1,5 +1,10 @@
 <app-header></app-header>
-<div *ngIf="user">
-    <p>Nom d'utilisateur: {{ user.nickname }}</p>
-    <p>Email: {{ user.email }}</p>
-</div>
+<form [formGroup]="form" (ngSubmit)="submit()">
+    <div>
+        <input type="text" id="nickname" name="nickname" value="{{this.nickname}}" formControlName="nickname">
+    </div>
+    <div>
+        <input type="email" id="email" name="email" value="{{this.email}}" formControlName="email">
+    </div>
+    <button type="submit" [disabled]="form.invalid">Sauvegarder</button>
+</form>

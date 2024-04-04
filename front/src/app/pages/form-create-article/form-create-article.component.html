@@ -1,0 +1,21 @@
+<app-header></app-header>
+<form [formGroup]="form" (ngSubmit)="submit()">
+    <div>
+        <label for="theme">Sélectionner un thème :</label>
+        <select id="topicId" name="topicId" formControlName="topicId" required>
+            <option *ngFor="let topic of (topics$ | async)" value="{{topic.id}}">{{topic.theme}}</option>
+        </select>
+    </div>
+    
+    <div>
+        <label for="title">Titre de l'article :</label>
+        <input type="text" id="title" name="title" formControlName="title" required>
+    </div>
+    
+    <div>
+        <label for="content">Contenu de l'article :</label>
+        <textarea id="content" name="content" rows="4" cols="50" formControlName="description" required></textarea>
+    </div>
+    
+    <button type="submit" [disabled]="form.invalid">Soumettre</button>
+</form>

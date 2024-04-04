@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../pages/interfaces/user.interface';
+import { UserUpdateRequest } from '../models/userUpdateRequest.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -22,5 +23,9 @@ export class UserService {
 
   public delete(id: string): Observable<any> {
     return this.httpClient.delete(`${this.pathService}/${id}`);
+  }
+
+  public update(id: number, userUpdateRequest: UserUpdateRequest){
+    return this.httpClient.put(`${this.pathService}/update/${id}`, userUpdateRequest);
   }
 }
