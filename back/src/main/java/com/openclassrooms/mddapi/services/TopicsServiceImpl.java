@@ -33,6 +33,11 @@ public class TopicsServiceImpl implements TopicsService {
     }
 
     @Override
+    public Topics findByTheme(String theme) {
+        return topicsRepository.findByTheme(theme).orElse(null);
+    }
+
+    @Override
     public void subscribe(Long id, Long userId) {
         Topics topics = topicsRepository.findById(id).orElse(null);
         User user = this.userRepository.findById(userId).orElse(null);

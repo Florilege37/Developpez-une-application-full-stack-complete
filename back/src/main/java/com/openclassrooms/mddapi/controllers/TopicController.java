@@ -64,5 +64,14 @@ public class TopicController {
         return ResponseEntity.ok().body(topicsMapper.toDto(topics));
     }
 
+    @GetMapping("/getTheme/{theme}")
+    public ResponseEntity<?> getByTheme(@PathVariable("theme") String theme){
+        Topics topics = topicsService.findByTheme(theme);
+        if (topics == null){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok().body(topicsMapper.toDto(topics));
+    }
+
 
 }

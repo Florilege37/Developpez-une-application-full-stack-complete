@@ -10,6 +10,8 @@ public interface TopicsService {
 
     Topics findById(Long id);
 
+    Topics findByTheme(String theme);
+
     void subscribe(Long id, Long userId);
 
     void unsubscribe(Long id, Long userId);
