@@ -4,5 +4,6 @@ export interface User {
     nickname: string;
     password: string;
     createdAt: Date;
+    topicSubscribed : number[];
   }
   

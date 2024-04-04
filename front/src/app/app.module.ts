@@ -18,6 +18,8 @@ import { ListPostsComponent } from './pages/list-posts/list-posts.component';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { MeComponent } from './pages/me/me.component';
 import { DetailPostsComponent } from './pages/detail-posts/detail-posts.component';
+import { HeaderComponent } from './pages/header/header.component';
+import { ListTopicsComponent } from './pages/list-topics/list-topics.component';
 
 const materialModule = [
   MatButtonModule,
@@ -28,7 +30,7 @@ const materialModule = [
 ]
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, LoginComponent, RegisterComponent, ListPostsComponent, MeComponent, DetailPostsComponent],
+  declarations: [AppComponent, HomeComponent, LoginComponent, RegisterComponent, ListPostsComponent, MeComponent, DetailPostsComponent, HeaderComponent, ListTopicsComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

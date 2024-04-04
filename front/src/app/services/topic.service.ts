@@ -18,11 +18,19 @@ export class TopicService {
     return this.httpClient.get<Topic>(`${this.pathService}/${id}`);
   }
 
-  /*public all(): Observable<Post[]> {
-    return this.httpClient.get<Post[]>(`${this.pathService}/me/posts`);
+  public all(): Observable<Topic[]> {
+    return this.httpClient.get<Topic[]>(`${this.pathService}/get`);
   }
 
-  public delete(id: string): Observable<any> {
+  public subscribeToTopic(id: number, userId: number): Observable<void> {
+    return this.httpClient.post<void>(`${this.pathService}/${userId}/subs/${id}`, null);
+  }
+
+  public unSubscribeToTopic(id: number, userId: number): Observable<void> {
+    return this.httpClient.delete<void>(`${this.pathService}/${userId}/subs/${id}`);
+  }
+
+  /*public delete(id: string): Observable<any> {
     return this.httpClient.delete(`${this.pathService}/${id}`);
   }
 
@@ -34,12 +42,6 @@ export class TopicService {
     return this.httpClient.put<Post>(`${this.pathService}/${id}`, post);
   }
 
-  public participate(id: string, userId: string): Observable<void> {
-    return this.httpClient.post<void>(`${this.pathService}/${id}/participate/${userId}`, null);
-  }
-
-  public unParticipate(id: string, userId: string): Observable<void> {
-    return this.httpClient.delete<void>(`${this.pathService}/${id}/participate/${userId}`);
-  }*/
+  */
 
 }

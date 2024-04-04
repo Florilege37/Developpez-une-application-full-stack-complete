@@ -1,0 +1,11 @@
+<app-header></app-header>
+<div>
+    <div *ngFor="let topic of (topics$ | async)" fxFlex>
+        <div>
+            <h1>{{topic.theme}}</h1>
+            <p>{{topic.description}}</p>
+            <button [style.display]="isSubscribed(topic.id) ? 'none' : 'block'" (click)="subscribeToTopic(topic.id, user.id)">S'abonner</button>
+            <button [style.display]="isSubscribed(topic.id) ? 'block' : 'none'" (click)="unSubscribeToTopic(topic.id, user.id)">Se désabonner</button>
+        </div>
+    </div>
+</div>

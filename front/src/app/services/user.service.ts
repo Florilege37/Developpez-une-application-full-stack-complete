@@ -13,7 +13,7 @@ export class UserService {
   constructor(private httpClient: HttpClient) { }
 
   public getMe(): Observable<User> {
-    return this.httpClient.get<User>(`${this.pathService}/me}`);
+    return this.httpClient.get<User>(`${this.pathService}/me`);
   }
 
   public getById(id: string): Observable<User> {

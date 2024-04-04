@@ -1,3 +1,4 @@
+<app-header></app-header>
 <div>
     <div class="item" *ngFor="let post of (post$ | async)" fxFlex>
         <div (click)="onPostClick(post.id)">
