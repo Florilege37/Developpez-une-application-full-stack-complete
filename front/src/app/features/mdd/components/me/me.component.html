@@ -8,7 +8,7 @@
     </div>
     <button type="submit" [disabled]="form.invalid">Sauvegarder</button>
 </form>
-<hr/>
+<p><hr/>
 <div *ngFor="let topic of (topics$ | async)" fxFlex>
     <div *ngIf="isSubscribed(topic.id)">
         <h1>{{topic.theme}}</h1>

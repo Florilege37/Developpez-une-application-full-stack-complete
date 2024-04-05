@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Topic } from '../interfaces/topic.interface';
+import { Topic } from '../../interfaces/topic.interface';
 import { Observable } from 'rxjs';
-import { TopicService } from 'src/app/services/topic.service';
+import { TopicService } from 'src/app/features/mdd/services/topic.service';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Post } from '../interfaces/post.interface';
+import { Post } from '../../interfaces/post.interface';
 import { UserService } from 'src/app/services/user.service';
-import { User } from '../interfaces/user.interface';
-import { PostApiService } from 'src/app/services/post.service';
+import { User } from '../../../../models/user.interface';
+import { PostApiService } from 'src/app/features/mdd/services/post.service';
 
 @Component({
   selector: 'app-form-create-article',
@@ -23,7 +23,7 @@ export class FormCreateArticleComponent implements OnInit {
     private topicService: TopicService,
     private fb: FormBuilder,
     private userService: UserService,
-    private postApiService: PostApiService,) { }
+    private postApiService: PostApiService) { }
     
     public form = this.fb.group({
       topicId: [
@@ -56,7 +56,7 @@ export class FormCreateArticleComponent implements OnInit {
     const articleRequest = this.form.value as unknown as Post;
     articleRequest.user_id = this.userId;
     console.log(articleRequest);
-    this.postApiService.create(articleRequest).subscribe();
+    this.postApiService.create(articleRequest);
     console.log("test");
   }
 

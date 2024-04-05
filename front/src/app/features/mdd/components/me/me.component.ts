@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { SessionService } from '../../services/session.service';
-import { User } from '../interfaces/user.interface';
-import { UserService } from '../../services/user.service';
+import { SessionService } from '../../../../services/session.service';
+import { User } from '../../../../models/user.interface';
+import { UserService } from '../../../../services/user.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UserUpdateRequest } from 'src/app/models/userUpdateRequest.interface';
 import { Observable } from 'rxjs';
-import { Topic } from '../interfaces/topic.interface';
-import { TopicService } from 'src/app/services/topic.service';
+import { Topic } from '../../interfaces/topic.interface';
+import { TopicService } from 'src/app/features/mdd/services/topic.service';
 
 @Component({
   selector: 'app-me',

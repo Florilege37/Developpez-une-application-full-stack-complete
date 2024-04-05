@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from './services/auth.service';
+import { AuthService } from './features/auth/services/auth.service';
 import { SessionService } from './services/session.service';
 import { Observable } from 'rxjs';
 
@@ -11,7 +11,6 @@ import { Observable } from 'rxjs';
 })
 export class AppComponent {
   constructor(
-    private authService: AuthService,
     private router: Router,
     private sessionService: SessionService) {
   }

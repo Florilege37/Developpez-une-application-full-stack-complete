@@ -4,8 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './pages/home/home.component';
-import { LoginComponent } from './pages/login/login.component';
+import { HomeComponent } from './features/auth/components/home/home.component';
+import { LoginComponent } from './features/auth/components/login/login.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -13,14 +13,16 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { RegisterComponent } from './pages/register/register.component';
-import { ListPostsComponent } from './pages/list-posts/list-posts.component';
+import { RegisterComponent } from './features/auth/components/register/register.component';
+import { ListPostsComponent } from './features/mdd/components/list-posts/list-posts.component';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
-import { MeComponent } from './pages/me/me.component';
-import { DetailPostsComponent } from './pages/detail-posts/detail-posts.component';
-import { HeaderComponent } from './pages/header/header.component';
-import { ListTopicsComponent } from './pages/list-topics/list-topics.component';
-import { FormCreateArticleComponent } from './pages/form-create-article/form-create-article.component';
+import { MeComponent } from './features/mdd/components/me/me.component';
+import { DetailPostsComponent } from './features/mdd/components/detail-posts/detail-posts.component';
+import { HeaderComponent } from './features/mdd/components/header/header.component';
+import { ListTopicsComponent } from './features/mdd/components/list-topics/list-topics.component';
+import { FormCreateArticleComponent } from './features/mdd/components/form-create-article/form-create-article.component';
+import { MddModule } from './features/mdd/mdd.module';
+import { AuthModule } from './features/auth/auth.module';
 
 const materialModule = [
   MatButtonModule,
@@ -31,10 +33,12 @@ const materialModule = [
 ]
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, LoginComponent, RegisterComponent, ListPostsComponent, MeComponent, DetailPostsComponent, HeaderComponent, ListTopicsComponent, FormCreateArticleComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    MddModule,
+    AuthModule,
     HttpClientModule,
     BrowserAnimationsModule,
     MatButtonModule,

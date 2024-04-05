@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Topic } from '../interfaces/topic.interface';
+import { Topic } from '../../interfaces/topic.interface';
 import { Router } from '@angular/router';
 import { SessionService } from 'src/app/services/session.service';
-import { TopicService } from 'src/app/services/topic.service';
+import { TopicService } from 'src/app/features/mdd/services/topic.service';
 import { Observable } from 'rxjs';
-import { User } from '../interfaces/user.interface';
+import { User } from '../../../../models/user.interface';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({

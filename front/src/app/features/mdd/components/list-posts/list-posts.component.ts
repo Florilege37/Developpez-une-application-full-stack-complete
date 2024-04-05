@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Post } from '../interfaces/post.interface';
+import { Post } from '../../interfaces/post.interface';
 import { Observable } from 'rxjs';
-import { PostApiService } from 'src/app/services/post.service';
+import { PostApiService } from 'src/app/features/mdd/services/post.service';
 import { SessionService } from 'src/app/services/session.service';
 import { SessionInformation } from 'src/app/models/sessionInformation.interface';
 import { Router } from '@angular/router';

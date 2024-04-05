@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Post } from '../interfaces/post.interface';
+import { Post } from '../../interfaces/post.interface';
 import { SessionService } from 'src/app/services/session.service';
-import { PostApiService } from 'src/app/services/post.service';
+import { PostApiService } from 'src/app/features/mdd/services/post.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
-import { User } from '../interfaces/user.interface';
-import { TopicService } from 'src/app/services/topic.service';
-import { Topic } from '../interfaces/topic.interface';
-import { Message } from '../interfaces/message.interface';
+import { User } from '../../../../models/user.interface';
+import { TopicService } from 'src/app/features/mdd/services/topic.service';
+import { Topic } from '../../interfaces/topic.interface';
+import { Message } from '../../interfaces/message.interface';
 
 @Component({
   selector: 'app-detail-posts',
