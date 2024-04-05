@@ -1,0 +1,46 @@
+.logo-container {
+    display: flex;
+    align-items: center;
+    .logo-image{
+        height: 80px;
+    }
+}
+
+.flex-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+li {
+    float: left;
+}
+  
+li a {
+    color: black;
+    padding: 4px 16px;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+mat-toolbar{
+    border-bottom: 1px solid black;
+}
+
+.active {
+  color: #7763C5 !important;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}

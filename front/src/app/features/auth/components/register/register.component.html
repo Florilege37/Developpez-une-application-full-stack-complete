@@ -1,19 +1,22 @@
-<h2>Inscription</h2>
-<form [formGroup]="form" (ngSubmit)="submit()">
-    <div>
-        <label for="nickname">Nom d'utilisateur:</label>
-        <input type="text" id="nickname" name="nickname" formControlName="nickname" required>
-    </div>
-     <div>
-        <label for="email">Adresse email:</label>
-        <input type="email" id="email" name="email" formControlName="email" required>
-    </div>
-    <div>
-        <label for="password">Mot de passe:</label>
-        <input type="password" id="password" name="password" formControlName="password" required>
-    </div>
-    <div>
-        <button type="submit" [disabled]="form.invalid">S'inscrire</button>
-    </div>
-    <span *ngIf="onError" class="error">Erreur lors de l'inscription</span>
-</form>
+<app-header></app-header>
+<div class="center">
+    <h2>Inscription</h2>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="ligne-formulaire">
+            <label for="nickname">Nom d'utilisateur</label><br>
+            <input type="text" id="nickname" name="nickname" formControlName="nickname" class="champs-formulaire" required>
+        </div>
+        <div class="ligne-formulaire">
+            <label for="email">Adresse email</label><br>
+            <input type="email" id="email" name="email" formControlName="email" class="champs-formulaire" required>
+        </div>
+        <div class="ligne-formulaire">
+            <label for="password">Mot de passe</label><br>
+            <input type="password" id="password" name="password" formControlName="password" class="champs-formulaire" required>
+        </div>
+        <div class="button-connect">
+            <button mat-raised-button type="submit" [disabled]="form.invalid">S'inscrire</button>
+        </div>
+        <span *ngIf="onError" class="error">Erreur lors de l'inscription</span>
+    </form>
+</div>

@@ -18,11 +18,12 @@ import { ListPostsComponent } from './features/mdd/components/list-posts/list-po
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { MeComponent } from './features/mdd/components/me/me.component';
 import { DetailPostsComponent } from './features/mdd/components/detail-posts/detail-posts.component';
-import { HeaderComponent } from './features/mdd/components/header/header.component';
+import { HeaderComponent } from './features/core/components/header/header.component';
 import { ListTopicsComponent } from './features/mdd/components/list-topics/list-topics.component';
 import { FormCreateArticleComponent } from './features/mdd/components/form-create-article/form-create-article.component';
 import { MddModule } from './features/mdd/mdd.module';
 import { AuthModule } from './features/auth/auth.module';
+import { CoreModule } from './features/core/core.module';
 
 const materialModule = [
   MatButtonModule,
@@ -35,10 +36,11 @@ const materialModule = [
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    BrowserModule,
-    AppRoutingModule,
     MddModule,
     AuthModule,
+    CoreModule,
+    BrowserModule,
+    AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
     MatButtonModule,

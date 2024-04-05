@@ -1,16 +1,26 @@
-<h2>Se connecter</h2>
-<form [formGroup]="form" (ngSubmit)="submit()">
+<app-header></app-header>
+<div class="center">
+    <h2>Se connecter</h2>
+    <form [formGroup]="form" (ngSubmit)="submit()">
 
-    <div>
-        <label for="emailOrNickname">E-mail ou nom d'utilisateur :</label><br>
-        <input type="text" id="emailOrNickname" name="emailOrNickname" formControlName="emailOrNickname"><br>
-    </div>
-    <div>
-        <label for="password">Mot de passe :</label><br>
-        <input type="password" id="password" name="password" formControlName="password"><br>
-    </div>
-    <div>
-        <button type="submit" [disabled]="form.invalid">Se connecter</button>
-    </div>
-    <p *ngIf="onError" class="error">Erreur lors de l'authentification</p>
-</form>
+        <div class="ligne-formulaire">
+            <label for="emailOrNickname">E-mail ou nom d'utilisateur</label><br>
+            <input type="text" id="emailOrNickname" name="emailOrNickname" formControlName="emailOrNickname" class="champs-formulaire"><br>
+        </div>
+        <div class="ligne-formulaire">
+            <label for="password">Mot de passe</label><br>
+            <input type="password" id="password" name="password" formControlName="password" class="champs-formulaire"><br>
+        </div>
+        <div class="button-connect">
+            <button
+              type="submit"
+              mat-raised-button
+              (click)="submit()"
+              [disabled]="form.invalid"
+            >
+              Se connecter
+            </button>
+        </div>
+        <p *ngIf="onError" class="error">Erreur lors de l'authentification</p>
+    </form>
+</div>

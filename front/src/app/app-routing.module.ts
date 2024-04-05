@@ -23,6 +23,8 @@ const routes: Routes = [
   canActivate: [AuthGuard],
   loadChildren: () => import('./features/mdd/mdd.module').then(m => m.MddModule)
   },
+  //Redirection en cas d'URL incorrecte (404 Not Found)
+  { path: '**', redirectTo: 'posts' },
 ];
 
 @NgModule({

@@ -7,7 +7,8 @@ import { ListPostsComponent } from 'src/app/features/mdd/components/list-posts/l
 import { ListTopicsComponent } from 'src/app/features/mdd/components/list-topics/list-topics.component';
 import { MeComponent } from 'src/app/features/mdd/components/me/me.component';
 import { MddRoutingModule } from './mdd-routing.module';
-import { HeaderComponent } from './components/header/header.component';
+import { HeaderComponent } from '../core/components/header/header.component';
+import { CoreModule } from '../core/core.module';
 
 
 
@@ -17,13 +18,13 @@ import { HeaderComponent } from './components/header/header.component';
     DetailPostsComponent,
     MeComponent,
     ListTopicsComponent,
-    FormCreateArticleComponent,
-    HeaderComponent
+    FormCreateArticleComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     MddRoutingModule,
+    CoreModule
   ]
 })
 export class MddModule { }
