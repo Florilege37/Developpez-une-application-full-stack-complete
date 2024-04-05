@@ -11,6 +11,8 @@ import { RegisterRequest } from "../interfaces/registerRequest.interface";
 export class AuthService {
   
     private pathService = 'api/auth';
+
+    public token !: string;
   
     constructor(private httpClient: HttpClient) { }
   
