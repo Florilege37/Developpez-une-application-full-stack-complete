@@ -7,6 +7,7 @@ import { Post } from '../../interfaces/post.interface';
 import { UserService } from 'src/app/services/user.service';
 import { User } from '../../../../models/user.interface';
 import { PostApiService } from 'src/app/features/mdd/services/post.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-form-create-article',
@@ -23,6 +24,7 @@ export class FormCreateArticleComponent implements OnInit {
     private topicService: TopicService,
     private fb: FormBuilder,
     private userService: UserService,
+    private router: Router,
     private postApiService: PostApiService) { }
     
     public form = this.fb.group({
@@ -55,9 +57,12 @@ export class FormCreateArticleComponent implements OnInit {
   submit(){
     const articleRequest = this.form.value as unknown as Post;
     articleRequest.user_id = this.userId;
-    console.log(articleRequest);
-    this.postApiService.create(articleRequest);
-    console.log("test");
+    this.postApiService.create(articleRequest).subscribe();
+    this.router.navigate(['/posts']);
+  }
+
+  retour(): void{
+    this.router.navigate(['/posts']);
   }
 
 }

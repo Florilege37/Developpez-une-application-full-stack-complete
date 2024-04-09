@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { SessionInformation } from '../models/sessionInformation.interface';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,9 @@ export class SessionService {
 
   private isLoggedSubject = new BehaviorSubject<boolean>(this.isLogged);
 
-  constructor() {
+  constructor(
+    private router: Router
+  ) {
     // Récupérez les informations de session depuis le Local Storage lors de l'initialisation du service
     const sessionData = localStorage.getItem(this.SESSION_KEY);
     if (sessionData) {
@@ -38,6 +41,8 @@ export class SessionService {
   public logOut(): void {
     this.sessionInformation = undefined;
     this.isLogged = false;
+    localStorage.clear();
+    this.router.navigate(['/home']);
     this.next();
   }
 

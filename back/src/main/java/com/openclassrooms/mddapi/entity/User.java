@@ -55,7 +55,7 @@ public class User {
     private List<Topics> topicSubscribed;
 
     //Le "user" est le nom de l'attribut dans l'entity "POSTS"
-    /*@OneToMany(mappedBy = "user")
-    private List<Posts> posts;*/
+    @OneToMany(mappedBy = "user")
+    private List<Posts> posts;
 
 }

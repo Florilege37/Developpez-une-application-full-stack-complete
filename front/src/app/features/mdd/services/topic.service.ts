@@ -34,18 +34,8 @@ export class TopicService {
     return this.httpClient.get<Topic>(`${this.pathService}/getTheme/${theme}`);
   }
 
-  /*public delete(id: string): Observable<any> {
-    return this.httpClient.delete(`${this.pathService}/${id}`);
+  public subscribedTopics(userId: string): Observable<Topic[]> {
+    return this.httpClient.get<Topic[]>(`${this.pathService}/all/${userId}`);
   }
-
-  public create(post: Post): Observable<Post> {
-    return this.httpClient.post<Post>(this.pathService, post);
-  }
-
-  public update(id: string, post: Post): Observable<Post> {
-    return this.httpClient.put<Post>(`${this.pathService}/${id}`, post);
-  }
-
-  */
 
 }

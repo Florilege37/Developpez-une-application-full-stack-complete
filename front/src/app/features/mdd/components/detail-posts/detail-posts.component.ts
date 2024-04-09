@@ -8,6 +8,8 @@ import { User } from '../../../../models/user.interface';
 import { TopicService } from 'src/app/features/mdd/services/topic.service';
 import { Topic } from '../../interfaces/topic.interface';
 import { Message } from '../../interfaces/message.interface';
+import { FormBuilder, Validators } from '@angular/forms';
+import { MessageService } from '../../services/message.service';
 
 @Component({
   selector: 'app-detail-posts',
@@ -24,12 +26,24 @@ export class DetailPostsComponent implements OnInit {
   public userName?: string;
   public topicTheme?: string;
 
+  public form = this.fb.group({
+    message: [
+      '',
+      [
+        Validators.required,
+      ]
+    ]
+  });
+
   constructor(
     private route: ActivatedRoute,
     private sessionService: SessionService,
     private postApiService: PostApiService,
     private userService: UserService,
-    private topicService: TopicService) {
+    private fb: FormBuilder,
+    private topicService: TopicService,
+    private router: Router,
+    private messageService: MessageService) {
       this.postId = this.route.snapshot.paramMap.get('id')!;
      }
 
@@ -51,7 +65,24 @@ export class DetailPostsComponent implements OnInit {
         })
 
       });
-    
+  }
+
+  createMessage(): void{
+    const message = this.form.value as Message;
+    if (this.sessionService.sessionInformation?.id !== undefined) {
+      message.user_id = this.sessionService.sessionInformation.id;
+    } else {
+      message.user_id = 0;
+    }
+    message.postId = parseInt(this.postId);
+    this.messageService.createMessage(message).subscribe(() => {
+      // Après la création réussie, rechargement de la page
+      window.location.reload();
+    })
+  }
+
+  retour(): void{
+    this.router.navigate(['/posts']);
   }
 
 }

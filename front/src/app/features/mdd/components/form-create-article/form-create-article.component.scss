@@ -1,0 +1,44 @@
+.ligne-formulaire input{
+    border-radius: 5px;
+    border-width: 1px;
+    width: 400px;
+    height: 30px;
+    border-color: #7763C5;
+}
+
+.ligne-formulaire textarea{
+    border-radius: 5px;
+    border-width: 1px;
+    width: 400px;
+    border-color: #7763C5;
+}
+
+.ligne-formulaire select{
+    border-radius: 5px;
+    border-width: 1px;
+    width: 405px;
+    height: 30px;
+    border-color: #7763C5;
+}
+
+button{
+    border-radius: 5px;
+    border-width: 1px;
+    height: 35px;
+    width: 125px;
+}
+
+.material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+    border: none;
+    color: #7763C5;
+    background-color: white;
+    &:disabled{
+      color: lightgrey;
+      background-color: white;
+    }
+  }

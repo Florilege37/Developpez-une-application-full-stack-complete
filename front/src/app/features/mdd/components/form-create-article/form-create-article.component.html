@@ -1,21 +1,26 @@
 <app-header></app-header>
-<form [formGroup]="form" (ngSubmit)="submit()">
-    <div>
-        <label for="theme">Sélectionner un thème :</label>
-        <select id="topicId" name="topicId" formControlName="topicId" required>
-            <option *ngFor="let topic of (topics$ | async)" value="{{topic.id}}">{{topic.theme}}</option>
-        </select>
-    </div>
-    
-    <div>
-        <label for="title">Titre de l'article :</label>
-        <input type="text" id="title" name="title" formControlName="title" required>
-    </div>
-    
-    <div>
-        <label for="content">Contenu de l'article :</label>
-        <textarea id="content" name="content" rows="4" cols="50" formControlName="description" required></textarea>
-    </div>
-    
-    <button type="submit" [disabled]="form.invalid">Soumettre</button>
-</form>
+<div>
+    <a class="material-symbols-outlined" (click)="retour()">arrow_back</a>
+</div>
+<div class="center">
+    <h2>Créer un nouvel article</h2>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="ligne-formulaire">
+            <select id="topicId" name="topicId" formControlName="topicId" required>
+                <option value="" disabled selected hidden>Sélectionner un thème</option>
+                <option *ngFor="let topic of (topics$ | async)" value="{{topic.id}}">{{topic.theme}}</option>
+            </select>
+        </div>
+        
+        <div class="ligne-formulaire">
+            <input type="text" id="title" name="title" formControlName="title" placeholder="Titre de l'article" required>
+        </div>
+        
+        <div class="ligne-formulaire">
+            <textarea id="content" name="content" rows="4" cols="50" formControlName="description" placeholder="Contenu de l'article" required></textarea>
+        </div>
+        <div class="button-connect">
+            <button type="submit" class="mat-raised-button" [disabled]="form.invalid">Créer</button>
+        </div>
+    </form>
+</div>

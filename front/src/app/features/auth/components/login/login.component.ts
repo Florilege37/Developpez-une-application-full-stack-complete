@@ -48,4 +48,8 @@ export class LoginComponent{
     });
   }
 
+  retour(): void{
+    this.router.navigate(['/home']);
+  }
+
 }

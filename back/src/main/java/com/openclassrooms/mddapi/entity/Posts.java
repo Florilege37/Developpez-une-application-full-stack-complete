@@ -42,11 +42,11 @@ public class Posts {
     private List<Messages> messages;
 
 
-    /*@ManyToOne
-    @JoinColumn(name = "user_id")
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false)
     private User user;
 
-    @ManyToOne
+    /*@ManyToOne
     @JoinColumn(name="topic_id")
     private Topics topic;*/
 }

@@ -42,6 +42,10 @@ export class RegisterComponent {
     ]
   });
 
+  retour(): void{
+    this.router.navigate(['/home']);
+  }
+
   public submit(): void {
     const registerRequest = this.form.value as RegisterRequest;
     this.authService.register(registerRequest).subscribe({

@@ -1,0 +1,26 @@
+.centeredLeft{
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row-reverse;
+    padding-left: 10px;
+    padding-bottom: 10px;
+}
+
+button{
+    border-radius: 5px;
+    border-width: 1px;
+    height: 35px;
+    width: 125px;
+}
+
+.post{
+    height: 120px;
+    background-color: #F5F5F5;
+}
+
+.post-container {
+    padding:10px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px 40px;
+}

@@ -1,18 +1,30 @@
 <app-header></app-header>
-<form [formGroup]="form" (ngSubmit)="submit()">
-    <div>
-        <input type="text" id="nickname" name="nickname" value="{{this.nickname}}" formControlName="nickname">
+<div class="me-container">
+    <h2>Profil utilisateur</h2>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="ligne-formulaire">
+            <input class="champs-formulaire" type="text" id="nickname" name="nickname" value="{{this.nickname}}" formControlName="nickname">
+        </div>
+        <div class="ligne-formulaire">
+            <input class="champs-formulaire" type="email" id="email" name="email" value="{{this.email}}" formControlName="email">
+        </div>
+        <div class="button-connect">
+            <button class="mat-raised-button champs-formulaire" type="submit" [disabled]="form.invalid">Sauvegarder</button>
+        </div>
+    </form>
+    <div class="button-disconnect">
+        <button class="mat-raised-button champs-formulaire" (click)="disconnect()">Se déconnecter</button>
     </div>
-    <div>
-        <input type="email" id="email" name="email" value="{{this.email}}" formControlName="email">
-    </div>
-    <button type="submit" [disabled]="form.invalid">Sauvegarder</button>
-</form>
+</div>
 <p><hr/>
-<div *ngFor="let topic of (topics$ | async)" fxFlex>
-    <div *ngIf="isSubscribed(topic.id)">
-        <h1>{{topic.theme}}</h1>
-        <p>{{topic.description}}</p>
-        <button [style.display]="isSubscribed(topic.id) ? 'block' : 'none'" (click)="unSubscribeToTopic(topic.id, user.id)">Se désabonner</button>
+<div class="topic-container">
+    <div *ngFor="let topic of (topics$ | async)" fxFlex>
+        <mat-card class="topic" *ngIf="isSubscribed(topic.id)">
+            <mat-card-title>{{topic.theme}}</mat-card-title>
+            <mat-card-content>{{topic.description}}</mat-card-content>
+            <div class="button-connect">
+                <button class="mat-raised-button champs-formulaire" [style.display]="isSubscribed(topic.id) ? 'block' : 'none'" (click)="unSubscribeToTopic(topic.id, user.id)">Se désabonner</button>
+            </div>
+        </mat-card>
     </div>
 </div>

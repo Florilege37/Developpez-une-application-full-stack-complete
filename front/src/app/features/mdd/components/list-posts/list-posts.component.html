@@ -1,12 +1,14 @@
 <app-header></app-header>
-<button (click)="goToCreerArticle()">Créer un article</button>
-<div>
+<div class="button-connect centeredLeft .champs-formulaire">
+    <button class="mat-raised-button" (click)="goToCreerArticle()">Créer un article</button>
+</div>
+<div class="post-container">
     <div class="item" *ngFor="let post of (post$ | async)" fxFlex>
-        <div (click)="onPostClick(post.id)">
-            <h1>{{post.title}}</h1>
-            <p>{{post.created_at | date: 'longDate'}}</p>
-            <p>{{post.userName}}</p>
-            <p>{{post.description}}</p>
-        </div>
+        <mat-card class="post" (click)="onPostClick(post.id)">
+            <mat-card-title>{{post.title}}</mat-card-title>
+            <mat-card-content>{{post.created_at | date: 'longDate'}}</mat-card-content>
+            <mat-card-content>{{post.userName}}</mat-card-content>
+            <mat-card-content>{{post.description}}</mat-card-content>
+        </mat-card>
     </div>
 </div>

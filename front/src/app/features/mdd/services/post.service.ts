@@ -25,20 +25,4 @@ export class PostApiService {
     return this.httpClient.post<Post>(`${this.pathService}/create`, post);
   }
 
-  /*public delete(id: string): Observable<any> {
-    return this.httpClient.delete(`${this.pathService}/${id}`);
-  }
-
-  public update(id: string, post: Post): Observable<Post> {
-    return this.httpClient.put<Post>(`${this.pathService}/${id}`, post);
-  }
-
-  public participate(id: string, userId: string): Observable<void> {
-    return this.httpClient.post<void>(`${this.pathService}/${id}/participate/${userId}`, null);
-  }
-
-  public unParticipate(id: string, userId: string): Observable<void> {
-    return this.httpClient.delete<void>(`${this.pathService}/${id}/participate/${userId}`);
-  }*/
-
 }

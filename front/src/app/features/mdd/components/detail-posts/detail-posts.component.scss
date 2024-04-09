@@ -1,0 +1,52 @@
+.sousTitre-post{
+    display: flex;
+}
+
+.mat-card-content{
+    margin-right: 25px;
+}
+
+.mat-card{
+    box-shadow: none;
+}
+
+.message{
+    display: flex;
+}
+
+.message-commentaire{
+    background-color: #F5F5F5;
+    width: 25%;
+    border-radius: 5px;
+    .mat-card-content{
+        padding-top: 5px;
+        padding-left: 5px;
+    }
+}
+
+.champ-ajout-commentaire input{
+    width: 80%;
+    height: 100px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    ::placeholder{
+        size: 50px;
+    }
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24;
+  border: none;
+  color: #7763C5;
+  background-color: white;
+  &:disabled{
+    color: lightgrey;
+    background-color: white;
+  }
+}

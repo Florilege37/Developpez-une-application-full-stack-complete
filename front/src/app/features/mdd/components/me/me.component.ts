@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SessionService } from '../../../../services/session.service';
 import { User } from '../../../../models/user.interface';
+import { map } from 'rxjs/operators';
 import { UserService } from '../../../../services/user.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UserUpdateRequest } from 'src/app/models/userUpdateRequest.interface';
@@ -15,12 +16,12 @@ import { TopicService } from 'src/app/features/mdd/services/topic.service';
 })
 export class MeComponent implements OnInit {
 
-  public topics$: Observable<Topic[]> = this.topicService.all();
-
   public nickname?: String;
   public email?: String;
   public userId!: number;
   public user!: User;
+
+  public topics$!: Observable<Topic[]>;
 
 
   public form = this.fb.group({
@@ -41,6 +42,7 @@ export class MeComponent implements OnInit {
   constructor(
     private userService: UserService,
     private fb: FormBuilder,
+    private sessionService: SessionService,
     private topicService: TopicService) {
 }
 
@@ -54,17 +56,21 @@ export class MeComponent implements OnInit {
         nickname: user.nickname,
         email: user.email
       });
+      this.topics$ = this.topicService.subscribedTopics(this.userId.toString());
     });
   }
 
   submit(){
     const userUpdateRequest = this.form.value as UserUpdateRequest;
-    this.userService.update(this.userId,userUpdateRequest).subscribe();
+    this.userService.update(this.userId,userUpdateRequest).subscribe(() => {
+      // Après la création réussie, rechargement de la page
+      window.location.reload();
+    })
   }
 
   isSubscribed(topicId: number): boolean {
     return this.user && this.user.topicSubscribed && this.user.topicSubscribed.includes(topicId);
-  } 
+  }
   
   unSubscribeToTopic(topicId: number, userId: number){
     this.topicService.unSubscribeToTopic(topicId,userId).subscribe();
@@ -72,6 +78,10 @@ export class MeComponent implements OnInit {
     if (index !== -1) {
       this.user.topicSubscribed.splice(index, 1);
     }
+  }
+
+  disconnect(): void{
+    this.sessionService.logOut();
   }
 
 }

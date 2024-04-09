@@ -1,6 +1,6 @@
 export interface Message{
     id: number;
-    post_id: number;
+    postId: number;
     user_id: number;
     userName: string;
     message: string;

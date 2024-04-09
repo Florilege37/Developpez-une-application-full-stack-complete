@@ -18,13 +18,9 @@ export class ListPostsComponent {
   public postUserNickname!: String;
 
   constructor(
-    private sessionService: SessionService,
     private postApiService: PostApiService,
-    private router: Router) { }
-
-    get user(): SessionInformation | undefined {
-      return this.sessionService.sessionInformation;
-    }
+    private router: Router) {
+     }
 
     onPostClick(postId : number){
       this.router.navigate(['/posts/', postId]);

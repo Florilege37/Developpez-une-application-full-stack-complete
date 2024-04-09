@@ -1,0 +1,38 @@
+.me-container {
+    padding-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+ }
+
+ .topic-container {
+    padding:10px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    justify-items: center; 
+}
+
+.topic{
+    height: 120px;
+    background-color: #F5F5F5;
+}
+
+button{
+    height: 35px;
+    width: 125px;
+}
+
+.button-disconnect{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 10px;
+    button{
+        border: none;
+        color: red;
+        box-shadow: none;
+    }
+  }

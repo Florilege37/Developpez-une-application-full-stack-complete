@@ -6,6 +6,7 @@ import com.openclassrooms.mddapi.entity.User;
 import com.openclassrooms.mddapi.mappers.TopicsMapper;
 import com.openclassrooms.mddapi.services.TopicsServiceImpl;
 import com.openclassrooms.mddapi.services.interfaces.TopicsService;
+import com.openclassrooms.mddapi.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,9 @@ public class TopicController {
 
     @Autowired
     private TopicsMapper topicsMapper;
+
+    @Autowired
+    private UserService userService;
 
     /**
      * Permet de récupérer la liste de tous les topics disponibles
@@ -71,6 +75,15 @@ public class TopicController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok().body(topicsMapper.toDto(topics));
+    }
+
+    @GetMapping("/all/{userId}")
+    public ResponseEntity<?> getAllTopicsSubscribed(@PathVariable("userId") String userId){
+        User user = userService.findById(Long.valueOf(userId));
+        if (user == null){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok().body(topicsMapper.toDto(user.getTopicSubscribed()));
     }
 
 

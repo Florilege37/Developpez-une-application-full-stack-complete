@@ -1,16 +1,29 @@
 <app-header></app-header>
-<div *ngIf="post">
-    <p>{{post.title}}</p>
-    <p>{{post.created_at | date: 'longDate'}}</p>
-    <p>{{userName}}</p>
-    <p>{{topicTheme}}</p>
-    <p>{{post.description}}</p>
-    <hr/>
-    <h1>Commentaires</h1>
-    <div class="messageSection" *ngFor="let message of (post.message)" >
-        <div class="message">
-            <p>{{message.userName}}</p>
-            <p>{{message.message}}</p>
-        </div>
-    </div>
+<div>
+    <a class="material-symbols-outlined" (click)="retour()">arrow_back</a>
 </div>
+<mat-card class="post-detail" *ngIf="post">
+    <mat-card-title>{{post.title}}</mat-card-title>
+    <div class="sousTitre-post">
+        <mat-card-content>{{post.created_at | date: 'longDate'}}</mat-card-content>
+        <mat-card-content>{{userName}}</mat-card-content>
+        <mat-card-content>{{topicTheme}}</mat-card-content>
+    </div>
+    <mat-card-content>{{post.description}}</mat-card-content>
+    <hr/>
+
+    <mat-card-title class="commentaire-titre">Commentaires</mat-card-title>
+    <mat-card class="messageSection" *ngFor="let message of (post.message)" >
+        <div class="message">
+            <mat-card-content class="message-auteur">{{message.userName}}</mat-card-content>
+            <div class="message-commentaire">
+                <mat-card-content>{{message.message}}</mat-card-content>
+            </div>
+            
+        </div>
+    </mat-card>
+    <form [formGroup]="form" class="champ-ajout-commentaire">
+        <input type="text" id="message" name="message" formControlName="message" placeholder="Écrivez ici votre commentaire"><br>
+        <button class="material-symbols-outlined" (click)="createMessage()" [disabled]="form.invalid">send</button>
+    </form>
+</mat-card>

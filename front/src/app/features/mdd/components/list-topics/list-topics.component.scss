@@ -1,0 +1,20 @@
+
+.topic-container {
+    padding:10px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    justify-items: center; 
+}
+
+.topic{
+    height: 120px;
+    background-color: #F5F5F5;
+}
+
+button{
+    border-radius: 5px;
+    border-width: 1px;
+    height: 35px;
+    width: 125px;
+}

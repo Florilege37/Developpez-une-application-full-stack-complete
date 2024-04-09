@@ -9,6 +9,7 @@ import { MeComponent } from 'src/app/features/mdd/components/me/me.component';
 import { MddRoutingModule } from './mdd-routing.module';
 import { HeaderComponent } from '../core/components/header/header.component';
 import { CoreModule } from '../core/core.module';
+import { MatCardModule } from '@angular/material/card';
 
 
 
@@ -24,7 +25,8 @@ import { CoreModule } from '../core/core.module';
     CommonModule,
     ReactiveFormsModule,
     MddRoutingModule,
-    CoreModule
+    CoreModule,
+    MatCardModule
   ]
 })
 export class MddModule { }
