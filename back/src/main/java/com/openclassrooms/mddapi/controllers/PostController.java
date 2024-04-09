@@ -13,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -84,6 +86,11 @@ public class PostController {
 
         //Pour chaque Topics, on récupère ses articles associés
         List<Posts> posts = postService.getPostsByTopicIds(ids);
+
+        Comparator<Posts> comparator = Comparator.comparing(Posts::getCreated_at).reversed();
+
+        // Trier la liste de posts en utilisant le comparateur personnalisé
+        Collections.sort(posts, comparator);
 
         return ResponseEntity.ok().body(postMapper.toDto(posts));
     }

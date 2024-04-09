@@ -32,7 +32,7 @@ public class MessageController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/")
+    @PostMapping("/create")
     public ResponseEntity<?> createMessage(@RequestBody MessageDto messageDto){
         Long postId = messageDto.getPostId();
         Long userId = messageDto.getUser_id();
