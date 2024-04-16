@@ -1,7 +1,9 @@
 package com.openclassrooms.mddapi.services.interfaces;
 
 import com.openclassrooms.mddapi.entity.Posts;
+import org.springframework.http.ResponseEntity;
 
+import java.security.Principal;
 import java.util.List;
 
 public interface PostService {
@@ -25,4 +27,6 @@ public interface PostService {
      * @return Tous les posts qui doivent être affichés sur la page d'accueil
      */
     List<Posts> getPostsByTopicIds(List<Long> ids);
+
+    ResponseEntity<?> getAllPosts(Principal user);
 }

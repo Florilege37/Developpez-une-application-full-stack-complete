@@ -28,9 +28,6 @@ public class PostController {
     @Autowired
     private PostMapper postMapper;
 
-    @Autowired
-    private UserService userService;
-
     /**
      * Permet de créer un nouveau "Posts"
      * @param postsDto
@@ -72,26 +69,6 @@ public class PostController {
      */
     @GetMapping("/me/posts")
     public ResponseEntity<?> getAllPosts(Principal user){
-        if (user == null){
-            return ResponseEntity.notFound().build();
-        }
-
-        // On récupère le user
-        String userMail = user.getName();
-        User userResult = userService.findByEmail(userMail);
-
-        // On récupère ses topics d'abonnement
-        List<Topics> topics = userResult.getTopicSubscribed();
-        List<Long> ids = topics.stream().map(Topics::getId).collect(Collectors.toList());
-
-        //Pour chaque Topics, on récupère ses articles associés
-        List<Posts> posts = postService.getPostsByTopicIds(ids);
-
-        Comparator<Posts> comparator = Comparator.comparing(Posts::getCreated_at).reversed();
-
-        // Trier la liste de posts en utilisant le comparateur personnalisé
-        Collections.sort(posts, comparator);
-
-        return ResponseEntity.ok().body(postMapper.toDto(posts));
+        return this.postService.getAllPosts(user);
     }
 }
