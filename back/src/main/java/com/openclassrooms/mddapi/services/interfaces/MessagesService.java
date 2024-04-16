@@ -2,12 +2,13 @@ package com.openclassrooms.mddapi.services.interfaces;
 
 import com.openclassrooms.mddapi.dto.MessageDto;
 import com.openclassrooms.mddapi.entity.Messages;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
 public interface MessagesService {
 
-    void createMessage(Messages messages);
+    ResponseEntity<?> createMessage(MessageDto messageDto);
 
     List<Messages> findAllMessageOfPostId(Long id);
 
