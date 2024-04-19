@@ -19,12 +19,12 @@ const routes: Routes = [
     canActivate: [UnauthGuard],
     loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule)
   },
-  {path: 'posts',
+  {path: 'mdd',
   canActivate: [AuthGuard],
   loadChildren: () => import('./features/mdd/mdd.module').then(m => m.MddModule)
   },
   //Redirection en cas d'URL incorrecte (404 Not Found)
-  { path: '**', redirectTo: 'posts' },
+  { path: '**', redirectTo: 'mdd' },
 ];
 
 @NgModule({

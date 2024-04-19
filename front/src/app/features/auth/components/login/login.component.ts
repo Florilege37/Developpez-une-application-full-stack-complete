@@ -42,14 +42,14 @@ export class LoginComponent{
       next: (response: SessionInformation) => {
         this.authService.token = response.token;
         this.sessionService.logIn(response);
-        this.router.navigate(['/posts']);
+        this.router.navigate(['/mdd']);
       },
       error: error => this.onError = true,
     });
   }
 
   retour(): void{
-    this.router.navigate(['/home']);
+    this.router.navigate(['']);
   }
 
 }

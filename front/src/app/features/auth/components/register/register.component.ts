@@ -43,7 +43,7 @@ export class RegisterComponent {
   });
 
   retour(): void{
-    this.router.navigate(['/home']);
+    this.router.navigate(['']);
   }
 
   public submit(): void {

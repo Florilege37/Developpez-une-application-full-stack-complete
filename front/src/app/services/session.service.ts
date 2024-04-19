@@ -42,7 +42,7 @@ export class SessionService {
     this.sessionInformation = undefined;
     this.isLogged = false;
     localStorage.clear();
-    this.router.navigate(['/home']);
+    this.router.navigate(['']);
     this.next();
   }
 

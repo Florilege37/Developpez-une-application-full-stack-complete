@@ -15,15 +15,15 @@ export class HeaderComponent {
     private sessionService: SessionService) {}
 
   goToArticles() {
-    this.router.navigate(['/posts']);
+    this.router.navigate(['/mdd']);
   }
 
   goToThemes() {
-    this.router.navigateByUrl("/topics");
+    this.router.navigateByUrl("/mdd/topics");
   }
 
   goToMe() {
-    this.router.navigate(['/me']);
+    this.router.navigate(['/mdd/me']);
   }
 
 }

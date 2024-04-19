@@ -82,7 +82,7 @@ export class DetailPostsComponent implements OnInit {
   }
 
   retour(): void{
-    this.router.navigate(['/posts']);
+    this.router.navigate(['/mdd']);
   }
 
 }

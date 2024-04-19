@@ -36,8 +36,6 @@ const materialModule = [
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    MddModule,
-    AuthModule,
     CoreModule,
     BrowserModule,
     AppRoutingModule,
