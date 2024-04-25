@@ -49,10 +49,3 @@ INSERT INTO TOPICS (theme,description) VALUES ("Python", "Python est un langage 
 INSERT INTO TOPICS (theme,description) VALUES ("Angular", "Angular est un framework pour clients, open source, basé sur TypeScript et codirigé par l'équipe du projet « Angular » chez Google ainsi que par une communauté de particuliers et de sociétés. Angular est une réécriture complète d'AngularJS, cadriciel construit par la même équipe.");
 INSERT INTO TOPICS (theme,description) VALUES ("C++", "C++ est un langage de programmation compilé permettant la programmation sous de multiples paradigmes, dont la programmation procédurale, la programmation orientée objet et la programmation générique.");
 INSERT INTO TOPICS (theme,description) VALUES ("C", "C est un langage de programmation impératif, généraliste et de bas niveau. Inventé au début des années 1970 pour réécrire Unix, C est devenu un des langages les plus utilisés, encore de nos jours.");
-
-INSERT INTO SUBSCRIPTION (user_id,topic_id) VALUES ()
-
-INSERT INTO POSTS (title, description, user_id, topic_id) VALUES ("Titre 1", "Description 1", 1, 5);
-INSERT INTO POSTS (title, description, user_id, topic_id) VALUES ("Titre 2", "Description 2", 1, 5);
-INSERT INTO POSTS (title, description, user_id, topic_id) VALUES ("Titre 3", "Description 3", 1, 6);
-INSERT INTO POSTS (title, description, user_id, topic_id) VALUES ("Titre 4", "Description 4", 1, 9);
