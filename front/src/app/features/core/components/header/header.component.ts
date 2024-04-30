@@ -14,15 +14,15 @@ export class HeaderComponent {
   constructor(private router: Router,
     private sessionService: SessionService) {}
 
-  goToArticles() {
+  goToArticles(): void {
     this.router.navigate(['/mdd']);
   }
 
-  goToThemes() {
+  goToThemes(): void {
     this.router.navigateByUrl("/mdd/topics");
   }
 
-  goToMe() {
+  goToMe(): void {
     this.router.navigate(['/mdd/me']);
   }
 

@@ -54,7 +54,7 @@ export class FormCreateArticleComponent implements OnInit {
       });
     }
 
-  submit(){
+  submit(): void{
     const articleRequest = this.form.value as unknown as Post;
     articleRequest.user_id = this.userId;
     this.postApiService.create(articleRequest).subscribe();

@@ -22,11 +22,11 @@ export class ListPostsComponent {
     private router: Router) {
      }
 
-    onPostClick(postId : number){
+    onPostClick(postId : number): void{
       this.router.navigate(['/mdd/posts/', postId]);
     }
 
-    goToCreerArticle(){
+    goToCreerArticle(): void{
       this.router.navigate(['/mdd/createArticle']);
     }
 

@@ -26,7 +26,7 @@ export class ListTopicsComponent implements OnInit{
     this.userService.getMe().subscribe((user: User) => this.user = user);
   }
 
-  subscribeToTopic(topicId: number, userId: number){
+  subscribeToTopic(topicId: number, userId: number): void{
     this.topicService.subscribeToTopic(topicId,userId).subscribe();
     this.user.topicSubscribed.push(topicId);
   }

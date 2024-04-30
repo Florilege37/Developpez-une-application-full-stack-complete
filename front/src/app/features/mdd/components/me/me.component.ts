@@ -60,7 +60,7 @@ export class MeComponent implements OnInit {
     });
   }
 
-  submit(){
+  submit(): void{
     const userUpdateRequest = this.form.value as UserUpdateRequest;
     this.userService.update(this.userId,userUpdateRequest).subscribe(() => {
       // Après la création réussie, rechargement de la page
@@ -72,7 +72,7 @@ export class MeComponent implements OnInit {
     return this.user && this.user.topicSubscribed && this.user.topicSubscribed.includes(topicId);
   }
   
-  unSubscribeToTopic(topicId: number, userId: number){
+  unSubscribeToTopic(topicId: number, userId: number): void{
     this.topicService.unSubscribeToTopic(topicId,userId).subscribe();
     const index = this.user.topicSubscribed.indexOf(topicId);
     if (index !== -1) {
