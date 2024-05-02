@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Post } from '../../interfaces/post.interface';
 import { SessionService } from 'src/app/services/session.service';
 import { PostApiService } from 'src/app/features/mdd/services/post.service';
@@ -10,13 +10,19 @@ import { Topic } from '../../interfaces/topic.interface';
 import { Message } from '../../interfaces/message.interface';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MessageService } from '../../services/message.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-detail-posts',
   templateUrl: './detail-posts.component.html',
   styleUrls: ['./detail-posts.component.scss']
 })
-export class DetailPostsComponent implements OnInit {
+export class DetailPostsComponent implements OnInit, OnDestroy {
+
+  private postApiServiceSubscription!: Subscription;
+  private messageServiceSubscription!: Subscription;
+  private userServiceSubscription!: Subscription;
+  private topicServiceSubscription!: Subscription;
 
   public post: Post | undefined;
   public postId: string;
@@ -52,15 +58,15 @@ export class DetailPostsComponent implements OnInit {
   }
 
   private fetchPost(): void {
-    this.postApiService
+    this.postApiServiceSubscription = this.postApiService
       .detail(this.postId)
       .subscribe((postResult: Post) => {
         this.post = postResult;
         this.messages = postResult.message;
-        this.userService.getById(this.post?.user_id.toString()).subscribe((user: User) => {
+        this.userServiceSubscription = this.userService.getById(this.post?.user_id.toString()).subscribe((user: User) => {
           this.userName = user.nickname;
         })
-        this.topicService.getById(this.post?.topicId.toString()).subscribe((topic: Topic) => {
+        this.topicServiceSubscription = this.topicService.getById(this.post?.topicId.toString()).subscribe((topic: Topic) => {
           this.topicTheme = topic.theme;
         })
 
@@ -75,14 +81,21 @@ export class DetailPostsComponent implements OnInit {
       message.user_id = 0;
     }
     message.postId = parseInt(this.postId);
-    this.messageService.createMessage(message).subscribe(() => {
+    this.messageServiceSubscription = this.messageService.createMessage(message).subscribe(() => {
       // Après la création réussie, rechargement de la page
       window.location.reload();
+      this.messageServiceSubscription.unsubscribe();
     })
   }
 
   retour(): void{
     this.router.navigate(['/mdd']);
+  }
+
+  ngOnDestroy(): void{
+    this.userServiceSubscription.unsubscribe();
+    this.topicServiceSubscription.unsubscribe();
+    this.postApiServiceSubscription.unsubscribe();
   }
 
 }

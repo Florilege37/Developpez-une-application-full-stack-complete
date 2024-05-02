@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { RegisterRequest } from 'src/app/features/auth/interfaces/registerRequest.interface';
 import { AuthService } from 'src/app/features/auth/services/auth.service';
 import { SessionService } from 'src/app/services/session.service';
@@ -11,6 +12,8 @@ import { SessionService } from 'src/app/services/session.service';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
+
+  private authServiceSubscription!: Subscription;
 
   constructor(private authService: AuthService,
     private fb: FormBuilder,
@@ -48,10 +51,15 @@ export class RegisterComponent {
 
   public submit(): void {
     const registerRequest = this.form.value as RegisterRequest;
-    this.authService.register(registerRequest).subscribe({
-        next: (_: void) => this.router.navigate(['/login']),
-        error: _ => this.onError = true,
+    this.authServiceSubscription = this.authService.register(registerRequest).subscribe({
+      next: (_: void) => {
+        this.router.navigate(['/login']);
+        this.authServiceSubscription.unsubscribe();
+      },
+      error: _ => {
+        this.onError = true;
+        this.authServiceSubscription.unsubscribe();
       }
-    );
+    });
   }
 }

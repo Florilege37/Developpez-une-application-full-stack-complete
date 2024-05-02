@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginRequest } from 'src/app/features/auth/interfaces/loginRequest.interface';
 import { SessionInformation } from 'src/app/models/sessionInformation.interface';
 import { AuthService } from 'src/app/features/auth/services/auth.service';
 import { SessionService } from 'src/app/services/session.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,8 @@ import { SessionService } from 'src/app/services/session.service';
 export class LoginComponent{
  
   public onError = false;
+
+  private authServiceSubscription!: Subscription;
 
   public form = this.fb.group({
     emailOrNickname: [
@@ -38,13 +41,17 @@ export class LoginComponent{
   
   public submit(): void {
     const loginRequest = this.form.value as LoginRequest;
-    this.authService.login(loginRequest).subscribe({
+    this.authServiceSubscription = this.authService.login(loginRequest).subscribe({
       next: (response: SessionInformation) => {
         this.authService.token = response.token;
         this.sessionService.logIn(response);
         this.router.navigate(['/mdd']);
+        this.authServiceSubscription.unsubscribe()
       },
-      error: error => this.onError = true,
+      error: _ => {
+        this.onError = true;
+        this.authServiceSubscription.unsubscribe();
+      }
     });
   }
 

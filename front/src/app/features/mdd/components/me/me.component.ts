@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SessionService } from '../../../../services/session.service';
 import { User } from '../../../../models/user.interface';
 import { map } from 'rxjs/operators';
 import { UserService } from '../../../../services/user.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UserUpdateRequest } from 'src/app/models/userUpdateRequest.interface';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Topic } from '../../interfaces/topic.interface';
 import { TopicService } from 'src/app/features/mdd/services/topic.service';
 
@@ -14,7 +14,7 @@ import { TopicService } from 'src/app/features/mdd/services/topic.service';
   templateUrl: './me.component.html',
   styleUrls: ['./me.component.scss']
 })
-export class MeComponent implements OnInit {
+export class MeComponent implements OnInit, OnDestroy {
 
   public nickname?: String;
   public email?: String;
@@ -22,6 +22,9 @@ export class MeComponent implements OnInit {
   public user!: User;
 
   public topics$!: Observable<Topic[]>;
+
+  private userServiceSubscription!: Subscription;
+  private topicServiceSubscription!: Subscription;
 
 
   public form = this.fb.group({
@@ -44,10 +47,10 @@ export class MeComponent implements OnInit {
     private fb: FormBuilder,
     private sessionService: SessionService,
     private topicService: TopicService) {
-}
+  }
 
   ngOnInit(): void {
-    this.userService.getMe().subscribe((user: User) => {
+    this.userServiceSubscription = this.userService.getMe().subscribe((user: User) => {
       this.user = user;
       this.nickname=user.nickname;
       this.email=user.email;
@@ -62,9 +65,10 @@ export class MeComponent implements OnInit {
 
   submit(): void{
     const userUpdateRequest = this.form.value as UserUpdateRequest;
-    this.userService.update(this.userId,userUpdateRequest).subscribe(() => {
+    this.userServiceSubscription = this.userService.update(this.userId,userUpdateRequest).subscribe(() => {
       // Après la création réussie, rechargement de la page
       window.location.reload();
+      this.userServiceSubscription.unsubscribe();
     })
   }
 
@@ -73,15 +77,20 @@ export class MeComponent implements OnInit {
   }
   
   unSubscribeToTopic(topicId: number, userId: number): void{
-    this.topicService.unSubscribeToTopic(topicId,userId).subscribe();
+    this.topicServiceSubscription = this.topicService.unSubscribeToTopic(topicId,userId).subscribe();
     const index = this.user.topicSubscribed.indexOf(topicId);
     if (index !== -1) {
       this.user.topicSubscribed.splice(index, 1);
     }
+    this.topicServiceSubscription.unsubscribe();
   }
 
   disconnect(): void{
     this.sessionService.logOut();
+  }
+
+  ngOnDestroy(): void {
+    this.userServiceSubscription.unsubscribe();
   }
 
 }
