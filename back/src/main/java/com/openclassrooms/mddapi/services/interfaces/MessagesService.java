@@ -5,10 +5,11 @@ import com.openclassrooms.mddapi.entity.Messages;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface MessagesService {
 
-    ResponseEntity<?> createMessage(MessageDto messageDto);
+    Optional<Messages> createMessage(MessageDto messageDto);
 
     List<Messages> findAllMessageOfPostId(Long id);
 

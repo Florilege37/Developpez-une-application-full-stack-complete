@@ -28,5 +28,5 @@ public interface PostService {
      */
     List<Posts> getPostsByTopicIds(List<Long> ids);
 
-    ResponseEntity<?> getAllPosts(Principal user);
+    List<Posts> getAllPosts(Principal user);
 }

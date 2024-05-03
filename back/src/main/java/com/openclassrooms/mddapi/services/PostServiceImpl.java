@@ -26,9 +26,6 @@ public class PostServiceImpl implements PostService {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private PostMapper postMapper;
     @Override
     public void createPost(Posts posts) {
         postRepository.save(posts);
@@ -48,11 +45,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public ResponseEntity<?> getAllPosts(Principal user){
-        if (user == null){
-            return ResponseEntity.badRequest().build();
-        }
-
+    public List<Posts> getAllPosts(Principal user){
         // On récupère le user
         String userMail = user.getName();
         User userResult = userService.findByEmail(userMail);
@@ -69,6 +62,6 @@ public class PostServiceImpl implements PostService {
         // Trier la liste de posts en utilisant le comparateur personnalisé
         Collections.sort(posts, comparator);
 
-        return ResponseEntity.ok().body(postMapper.toDto(posts));
+        return posts;
     }
 }

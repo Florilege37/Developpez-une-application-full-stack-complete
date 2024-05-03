@@ -4,11 +4,13 @@ import com.openclassrooms.mddapi.dto.PostsDto;
 import com.openclassrooms.mddapi.entity.Posts;
 import com.openclassrooms.mddapi.entity.Topics;
 import com.openclassrooms.mddapi.entity.User;
+import com.openclassrooms.mddapi.exception.BadRequestException;
 import com.openclassrooms.mddapi.mappers.PostMapper;
 import com.openclassrooms.mddapi.services.PostServiceImpl;
 import com.openclassrooms.mddapi.services.interfaces.PostService;
 import com.openclassrooms.mddapi.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,11 +36,10 @@ public class PostController {
      * @return
      */
     @PostMapping("/create")
-    public ResponseEntity<?> createPost(@RequestBody PostsDto postsDto){
+    @ResponseStatus(HttpStatus.OK)
+    public void createPost(@RequestBody PostsDto postsDto){
         Posts posts = postMapper.toEntity(postsDto);
         postService.createPost(posts);
-
-        return ResponseEntity.ok().build();
     }
 
     /**
@@ -47,17 +48,17 @@ public class PostController {
      * @return
      */
     @GetMapping("/{id}")
-    public ResponseEntity<?> getPost(@PathVariable("id") String id){
+    public PostsDto getPost(@PathVariable("id") String id){
         try {
             Posts posts = this.postService.findById(Long.valueOf(id));
 
             if (posts==null){
-                return ResponseEntity.notFound().build();
+                throw new BadRequestException();
             }
 
-            return ResponseEntity.ok().body(postMapper.toDto(posts));
+            return postMapper.toDto(posts);
         }  catch (NumberFormatException e) {
-            return ResponseEntity.badRequest().build();
+            throw new BadRequestException();
         }
     }
 
@@ -68,7 +69,8 @@ public class PostController {
      * @return
      */
     @GetMapping("/me/posts")
-    public ResponseEntity<?> getAllPosts(Principal user){
-        return this.postService.getAllPosts(user);
+    public List<PostsDto> getAllPosts(Principal user){
+        List<Posts> list =  this.postService.getAllPosts(user);
+        return postMapper.toDto(list);
     }
 }

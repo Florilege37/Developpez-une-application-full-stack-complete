@@ -2,6 +2,7 @@ package com.openclassrooms.mddapi.services;
 
 import com.openclassrooms.mddapi.dto.UserDto;
 import com.openclassrooms.mddapi.entity.User;
+import com.openclassrooms.mddapi.exception.BadRequestException;
 import com.openclassrooms.mddapi.mappers.UserMapper;
 import com.openclassrooms.mddapi.repository.UserRepository;
 import com.openclassrooms.mddapi.services.interfaces.UserService;
@@ -17,8 +18,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private UserMapper userMapper;
     @Override
     public User findById(Long id) {
         return userRepository.findById(id).orElse(null);
@@ -49,38 +48,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<?> updateUser(String id, UserDto newUserDto){
+    public void updateUser(String id, UserDto newUserDto){
         User user = findById(Long.valueOf(id));
 
         if (user == null) {
-            return ResponseEntity.badRequest().build();
+            throw new BadRequestException();
         }
-
-        UserDto userDto = userMapper.toDto(user);
-        userDto.setEmail(newUserDto.getEmail());
-        userDto.setNickname(newUserDto.getNickname());
-        user = userMapper.toEntity(userDto);
+        user.setEmail(newUserDto.getEmail());
+        user.setNickname(newUserDto.getNickname());
 
         save(user);
-        return ResponseEntity.ok().build();
     }
 
     @Override
-    public ResponseEntity<?> getMe(Principal user){
-        if (user == null){
-            return ResponseEntity.badRequest().build();
-        }
+    public User getMe(Principal user){
         String userMail = user.getName();
-        User userResult = findByEmail(userMail);
-        return ResponseEntity.ok().body(userMapper.toDto(userResult));
+        return findByEmail(userMail);
     }
 
     @Override
-    public ResponseEntity<?> getById(String id){
-        User user = findById(Long.valueOf(id));
-        if (user == null){
-            return ResponseEntity.badRequest().build();
-        }
-        return ResponseEntity.ok().body(userMapper.toDto(user));
+    public User getById(String id){
+        return findById(Long.valueOf(id));
     }
 }

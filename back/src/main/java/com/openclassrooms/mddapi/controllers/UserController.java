@@ -1,8 +1,12 @@
 package com.openclassrooms.mddapi.controllers;
 
 import com.openclassrooms.mddapi.dto.UserDto;
+import com.openclassrooms.mddapi.entity.User;
+import com.openclassrooms.mddapi.exception.BadRequestException;
+import com.openclassrooms.mddapi.mappers.UserMapper;
 import com.openclassrooms.mddapi.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +19,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserMapper userMapper;
+
     /**
      * Permet de mettre à jour le pseudo et/ou l'email de l'utilisateur
      * @param id
@@ -22,17 +29,24 @@ public class UserController {
      * @return
      */
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateUser(@PathVariable("id") String id, @RequestBody UserDto newUserDto){
-        return userService.updateUser(id, newUserDto);
+    @ResponseStatus(HttpStatus.OK)
+    public void updateUser(@PathVariable("id") String id, @RequestBody UserDto newUserDto){
+        try {
+            userService.updateUser(id, newUserDto);
+        } catch (Exception e){
+            throw new BadRequestException();
+        }
     }
 
     @GetMapping("/me")
-    ResponseEntity<?> getMe(Principal user){
-        return this.userService.getMe(user);
+    public UserDto getMe(Principal user){
+        User userFromService = userService.getMe(user);
+        return userMapper.toDto(userFromService);
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<?> getById(@PathVariable("id") String id){
-        return this.userService.getById(id);
+    public UserDto getById(@PathVariable("id") String id){
+        User userFromService = this.userService.getById(id);
+        return userMapper.toDto(userFromService);
     }
 }

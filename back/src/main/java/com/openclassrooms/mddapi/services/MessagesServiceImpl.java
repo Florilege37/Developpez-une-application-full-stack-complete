@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MessagesServiceImpl implements MessagesService {
@@ -30,7 +31,7 @@ public class MessagesServiceImpl implements MessagesService {
     @Autowired
     MessageMapper messageMapper;
     @Override
-    public ResponseEntity<?> createMessage(MessageDto messageDto) {
+    public Optional<Messages> createMessage(MessageDto messageDto) {
         Long postId = messageDto.getPostId();
         Long userId = messageDto.getUser_id();
 
@@ -38,12 +39,12 @@ public class MessagesServiceImpl implements MessagesService {
         User user = userService.findById(userId);
 
         if (posts == null || user == null || messageDto.getMessage() == null){
-            return ResponseEntity.badRequest().build();
+            return null;
         }
 
         Messages messages = messageMapper.toEntity(messageDto);
         messagesRepository.save(messages);
-        return ResponseEntity.ok().build();
+        return Optional.of(messages);
     }
 
     @Override

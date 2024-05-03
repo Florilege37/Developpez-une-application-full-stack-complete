@@ -27,19 +27,19 @@ public interface UserService {
      * @param newUserDto
      * @return ResponseEntity
      */
-    ResponseEntity<?> updateUser(String id, UserDto newUserDto);
+    void updateUser(String id, UserDto newUserDto);
     /**
      * Permet de récupérer les information de l'utilisateur connecté
      * @return ResponseEntity
      */
-    ResponseEntity<?> getMe(Principal user);
+    User getMe(Principal user);
 
     /**
      * Permet de récupérer les information de l'utilisateur ayant l'id
      * @param id
      * @return ResponseEntity
      */
-    ResponseEntity<?> getById(String id);
+    User getById(String id);
 
     User findByNickname(String nickname);
 
