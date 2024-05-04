@@ -10,7 +10,7 @@ import { RegisterRequest } from "../interfaces/registerRequest.interface";
   })
 export class AuthService {
   
-    private pathService = 'api/auth';
+    private pathService : string = 'api/auth';
 
     public token !: string;
   

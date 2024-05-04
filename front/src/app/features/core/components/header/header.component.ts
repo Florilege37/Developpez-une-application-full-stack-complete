@@ -9,7 +9,7 @@ import { SessionService } from 'src/app/services/session.service';
 })
 export class HeaderComponent {
   
-  public isLogged = this.sessionService.isLogged;
+  public isLogged : boolean = this.sessionService.isLogged;
 
   constructor(private router: Router,
     private sessionService: SessionService) {}

@@ -9,7 +9,7 @@ import { Topic } from '../interfaces/topic.interface';
 })
 export class TopicService {
 
-  private pathService = 'api/topics';
+  private pathService : string = 'api/topics';
 
   constructor(private httpClient: HttpClient) {
   }

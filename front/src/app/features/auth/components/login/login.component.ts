@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
 })
 export class LoginComponent{
  
-  public onError = false;
+  public onError : boolean = false;
 
   private authServiceSubscription!: Subscription;
 

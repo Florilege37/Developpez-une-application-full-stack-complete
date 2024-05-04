@@ -8,7 +8,7 @@ import { Post } from '../interfaces/post.interface';
 })
 export class PostApiService {
 
-  private pathService = 'api/posts';
+  private pathService : string = 'api/posts';
 
   constructor(private httpClient: HttpClient) {
   }

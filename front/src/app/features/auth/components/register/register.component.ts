@@ -17,11 +17,10 @@ export class RegisterComponent {
 
   constructor(private authService: AuthService,
     private fb: FormBuilder,
-    private router: Router,
-    private sessionService: SessionService) {
+    private router: Router) {
   } 
 
-  public onError = false;
+  public onError : boolean = false;
 
   public form = this.fb.group({
     nickname: [

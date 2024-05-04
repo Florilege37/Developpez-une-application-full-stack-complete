@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class SessionService {
 
   private readonly SESSION_KEY = 'session_information';
-  public isLogged = false;
+  public isLogged : boolean = false;
   public sessionInformation: SessionInformation | undefined;
 
   private isLoggedSubject = new BehaviorSubject<boolean>(this.isLogged);

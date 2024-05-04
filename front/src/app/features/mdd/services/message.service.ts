@@ -8,7 +8,7 @@ import { Message } from '../interfaces/message.interface';
 })
 export class MessageService {
 
-  private pathService = 'api/message/create';
+  private pathService : string = 'api/message/create';
 
   constructor(private httpClient: HttpClient) {
   }
